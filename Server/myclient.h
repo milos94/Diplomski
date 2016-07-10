@@ -26,6 +26,7 @@ public:
 
 signals:
     void msgRcv(QByteArray,MyClient*);
+    void cliDisconeccted(QString);
 
 public slots:
     void connected();

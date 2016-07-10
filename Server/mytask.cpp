@@ -47,14 +47,16 @@ void MyTask::startConversation(){
         response.append("KEY "+list[1]+' '+list[2]+' ');
         response.append(crypt->makeKey()+' ');
         response.append(crypt->makeIV());
+        qDebug()<<response.data();
         response=crypt->encrypt(response);
     }else {
-        response.append("User not online!");
+        response.append("FAIL3");
     }
+    qDebug()<<response.data();
     emit keyGenerated(response,clients->operator [](list[1]),clients->operator [](list[2]));
 }
 
 
 void MyTask::LogOff(){
-
+    clients->remove(cli->getName());
 }

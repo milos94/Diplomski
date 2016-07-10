@@ -24,6 +24,7 @@ void MyClient::connected(){
 
 void MyClient::disconnected(){
     qDebug()<< socketDescriptor<<" Disconnected";
+    emit cliDisconeccted(name);
 }
 
 void MyClient::readyRead(){

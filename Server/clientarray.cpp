@@ -21,13 +21,23 @@ MyClient* ClientArray::operator [](QString descripror){
 }
 
 void ClientArray::remove(QString descriptor){
+    try{
     for(Elem* pom=first;pom!=nullptr;pom=pom->next){
         if( pom->cl->getName()==descriptor){
-            pom->next->prevous=pom->prevous;
-            pom->prevous->next=pom->next;
+            if(pom==first)
+                first=first->next;
+            if(pom==last)
+                last=last->prevous;
+            if(pom->next!=nullptr)
+                pom->next->prevous=pom->prevous;
+            if(pom->prevous!=nullptr)
+                pom->prevous->next=pom->next;
             delete pom;
             break;
         }
+    }
+    }catch(exception e){
+        qDebug()<<e.what();
     }
 }
 

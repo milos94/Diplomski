@@ -78,11 +78,15 @@ QByteArray MyCrypt::decrypt(QByteArray data){
 QByteArray MyCrypt::makeKey(){
     byte cKey[AES::MAX_KEYLENGTH];
     prng.GenerateBlock(cKey,sizeof(key));
-    return QByteArray::fromRawData(reinterpret_cast<const char*>(cKey),sizeof(cKey));
+    std::string strKey;
+    StringSource(cKey,AES::MAX_KEYLENGTH,true, new HexEncoder(new StringSink(strKey)));
+    return QByteArray(strKey.c_str());
 }
 
 QByteArray MyCrypt::makeIV(){
     byte cIV[AES::BLOCKSIZE];
     prng.GenerateBlock(cIV,sizeof(cIV));
-    return QByteArray::fromRawData(reinterpret_cast<const char*>(cIV),sizeof(cIV));
+    std::string strIV;
+    StringSource(cIV,AES::BLOCKSIZE,true, new HexEncoder(new StringSink(strIV)));
+    return QByteArray(strIV.c_str());
 }

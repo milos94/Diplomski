@@ -30,6 +30,7 @@ public slots:
     void messageReceived(QByteArray,MyClient*);
     void loggedIn(QByteArray,MyClient*);
     void keyGenerated(QByteArray,MyClient*,MyClient*);
+    void clientDisconected(QString);
 };
 
 #endif // MYSERVER_H

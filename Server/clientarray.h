@@ -2,6 +2,7 @@
 #define CLIENTARRAY_H
 
 #include "myclient.h"
+#include <exception>
 
 using namespace std;
 class ClientArray
