@@ -27,7 +27,7 @@ private:
 
 public:
     MyTask(QByteArray,ClientArray*,MyCrypt*,MyClient*);
-
+    ~MyTask();
 protected:
     void run();
 

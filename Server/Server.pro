@@ -11,6 +11,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = Server
 TEMPLATE = app
 
+DESTDIR = $$PWD
+
 LIBS += /usr/lib/libcrypto++.a
 
 SOURCES += main.cpp\
@@ -30,3 +32,7 @@ HEADERS  += server.h \
     clientslist.h
 
 FORMS    += server.ui
+
+DISTFILES += \
+    cert.crt \
+    cert.key

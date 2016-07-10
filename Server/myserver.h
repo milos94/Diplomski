@@ -6,7 +6,9 @@
 #include <QTcpServer>
 #include <QDebug>
 #include <QSsl>
+#include <QSslKey>
 #include <QStringList>
+#include <QFile>
 #include "myclient.h"
 #include "mytask.h"
 #include "clientarray.h"
@@ -18,11 +20,13 @@ class MyServer : public QTcpServer
 public:
     MyServer(QObject *parent=nullptr);
     void StartServer();
-
+    ~MyServer();
 protected:
     void incomingConnection(qintptr socketDescriptor);
 
 private:
+    QSslKey *sslKey;
+    QSslCertificate *sslCertificate;
     ClientArray *clients;
     MyCrypt *crypt;
 

@@ -2,6 +2,7 @@
 #define SERVER_H
 
 #include <QMainWindow>
+#include <QSslSocket>
 #include "myserver.h"
 #include "mycrypt.h"
 

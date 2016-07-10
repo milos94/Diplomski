@@ -2,59 +2,49 @@
 
 MyCrypt::MyCrypt()
 {
-    //prng.GenerateBlock(key,sizeof(key));
-    //prng.GenerateBlock(iv,sizeof(iv));
-    std::string strKey="AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-    std::string strIV="AAAAAA";
+    prng.GenerateBlock(key,AES::MAX_KEYLENGTH);
+    prng.GenerateBlock(iv,AES::BLOCKSIZE);
 
-
-    if(AES::MAX_KEYLENGTH < strKey.size()) strKey=strKey.substr(0,AES::MAX_KEYLENGTH);
-    else if(AES::MAX_KEYLENGTH > strKey.size()) strKey+= std::string(AES::MAX_KEYLENGTH - strKey.size(),'*');
-    memcpy(key,strKey.c_str(),AES::MAX_KEYLENGTH);
-
-
-    if(AES::BLOCKSIZE <strIV.size()) strIV=strIV.substr(0,AES::BLOCKSIZE);
-    else if(AES::BLOCKSIZE > strIV.size()) strIV+= std::string(AES::BLOCKSIZE - strIV.size(),'*');
-    memcpy(iv,strIV.c_str(),AES::BLOCKSIZE);
-
-    strKey.clear();
-    strIV.clear();
-    StringSource(key, AES::MAX_KEYLENGTH,true, new HexEncoder(new StringSink(strKey)));
-    StringSource(iv, AES::BLOCKSIZE, true, new HexEncoder(new StringSink(strIV)));
+    std::string strKey="1AAE0C7222C0D716B4A197321E602F2BE31D4344AF0A0577EE029D23154DA9EA";
+    std::string strIV="81D605853779AD15B106C8FDE4E2A9D3";
 
     qDebug()<<strKey.c_str();
     qDebug()<<strIV.c_str();
 
+    memcpy(key,strKey.c_str(),AES::MAX_KEYLENGTH);
+    memcpy(iv,strIV.c_str(),AES::BLOCKSIZE);
 
 
 }
 
 QByteArray MyCrypt::encrypt(QByteArray data){
     try{
-        CBC_Mode<AES>::Encryption e;
-        e.SetKeyWithIV(key,sizeof(key),iv);
+        CBC_Mode<AES>::Encryption *e=new CBC_Mode<AES>::Encryption;
+        e->SetKeyWithIV(key,sizeof(key),iv);
         std::string chiper1,chiper2;
         chiper1.clear();
         chiper2.clear();
         StringSource(data.data(),true,
-                     new StreamTransformationFilter(e, new StringSink(chiper1),StreamTransformationFilter::PKCS_PADDING) );
+                     new StreamTransformationFilter(*e, new StringSink(chiper1),StreamTransformationFilter::PKCS_PADDING) );
         chiper2.clear();
         StringSource(chiper1,true,new HexEncoder(new StringSink(chiper2)));
         data.clear();
         data.append(chiper2.c_str());
+        delete e;
         return data;
     }catch(const CryptoPP::Exception& e)
     {
       qDebug() << e.what();
     }
+
     return NULL;
 
 }
 
 QByteArray MyCrypt::decrypt(QByteArray data){
     try{
-        CBC_Mode<AES>::Decryption d;
-        d.SetKeyWithIV(key,sizeof(key),iv);
+        CBC_Mode<AES>::Decryption *d=new CBC_Mode<AES>::Decryption;
+        d->SetKeyWithIV(key,sizeof(key),iv);
         std::string chiper1,chiper2;
         chiper1.clear();
         chiper2.clear();
@@ -63,10 +53,11 @@ QByteArray MyCrypt::decrypt(QByteArray data){
         qDebug()<<chiper1.c_str();
         chiper2.clear();
         StringSource(chiper1,true,
-                     new StreamTransformationFilter(d, new StringSink(chiper2)));
+                     new StreamTransformationFilter(*d, new StringSink(chiper2)));
         qDebug()<<chiper2.c_str();
         data.clear();
         data.append(chiper2.c_str());
+        delete d;
         return data;
     }catch(const CryptoPP::Exception& e)
     {

@@ -60,3 +60,9 @@ void MyTask::startConversation(){
 void MyTask::LogOff(){
     clients->remove(cli->getName());
 }
+
+MyTask::~MyTask(){
+    cli=nullptr;
+    clients=nullptr;
+    crypt=nullptr;
+}

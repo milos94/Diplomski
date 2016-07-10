@@ -6,6 +6,9 @@ Server::Server(QWidget *parent) :
     ui(new Ui::Server)
 {
     ui->setupUi(this);
+    if(!QSslSocket::supportsSsl()){
+        qDebug()<<"SSL NOT SUPPORTED!";
+    }
     srv=new MyServer;
 }
 

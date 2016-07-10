@@ -5,15 +5,24 @@ MyClient::MyClient(QObject *parent) : QObject(parent)
 
 }
 
-void MyClient::setSocket(qintptr Descriptor){
+void MyClient::setSocket(qintptr Descriptor,QSslKey key,QSslCertificate cert){
 
     socketDescriptor=Descriptor;
-    socket=new QTcpSocket(this);
+    socket=new QSslSocket(this);
     socket->setSocketDescriptor(socketDescriptor);
+
+    socket->setPrivateKey(key);
+    socket->setLocalCertificate(cert);
+    socket->setPeerVerifyMode(QSslSocket::VerifyNone);
 
     connect(socket,SIGNAL(connected()),this,SLOT(connected()));
     connect(socket,SIGNAL(disconnected()),this,SLOT(disconnected()));
     connect(socket,SIGNAL(readyRead()),this,SLOT(readyRead()));
+    connect(socket,SIGNAL(encrypted()),this,SLOT(ready()));
+
+    socket->startServerEncryption();
+
+
 
     qDebug()<< socketDescriptor <<"Client connected...";
 }
@@ -38,4 +47,13 @@ void MyClient::readyRead(){
 void MyClient::sendMessage(QString message){
 
     socket->write(message.toUtf8());
+}
+
+void MyClient::ready(){
+    qDebug()<<socketDescriptor<<" Client connected...";
+
+}
+
+MyClient::~MyClient(){
+    delete socket;
 }
