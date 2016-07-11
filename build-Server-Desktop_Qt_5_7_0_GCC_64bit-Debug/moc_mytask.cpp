@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MyTask_t {
-    QByteArrayData data[5];
-    char stringdata0[40];
+    QByteArrayData data[6];
+    char stringdata0[53];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -33,10 +33,12 @@ QT_MOC_LITERAL(0, 0, 6), // "MyTask"
 QT_MOC_LITERAL(1, 7, 8), // "loggedIn"
 QT_MOC_LITERAL(2, 16, 0), // ""
 QT_MOC_LITERAL(3, 17, 9), // "MyClient*"
-QT_MOC_LITERAL(4, 27, 12) // "keyGenerated"
+QT_MOC_LITERAL(4, 27, 12), // "keyGenerated"
+QT_MOC_LITERAL(5, 40, 12) // "disconnected"
 
     },
-    "MyTask\0loggedIn\0\0MyClient*\0keyGenerated"
+    "MyTask\0loggedIn\0\0MyClient*\0keyGenerated\0"
+    "disconnected"
 };
 #undef QT_MOC_LITERAL
 
@@ -46,20 +48,22 @@ static const uint qt_meta_data_MyTask[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   14, // methods
+       3,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       2,       // signalCount
+       3,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    2,   24,    2, 0x06 /* Public */,
-       4,    3,   29,    2, 0x06 /* Public */,
+       1,    4,   29,    2, 0x06 /* Public */,
+       4,    4,   38,    2, 0x06 /* Public */,
+       5,    1,   47,    2, 0x06 /* Public */,
 
  // signals: parameters
-    QMetaType::Void, QMetaType::QByteArray, 0x80000000 | 3,    2,    2,
-    QMetaType::Void, QMetaType::QByteArray, 0x80000000 | 3, 0x80000000 | 3,    2,    2,    2,
+    QMetaType::Void, QMetaType::QByteArray, 0x80000000 | 3, QMetaType::QString, QMetaType::QString,    2,    2,    2,    2,
+    QMetaType::Void, QMetaType::QByteArray, 0x80000000 | 3, 0x80000000 | 3, QMetaType::QString,    2,    2,    2,    2,
+    QMetaType::Void, QMetaType::QString,    2,
 
        0        // eod
 };
@@ -70,8 +74,9 @@ void MyTask::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         MyTask *_t = static_cast<MyTask *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->loggedIn((*reinterpret_cast< QByteArray(*)>(_a[1])),(*reinterpret_cast< MyClient*(*)>(_a[2]))); break;
-        case 1: _t->keyGenerated((*reinterpret_cast< QByteArray(*)>(_a[1])),(*reinterpret_cast< MyClient*(*)>(_a[2])),(*reinterpret_cast< MyClient*(*)>(_a[3]))); break;
+        case 0: _t->loggedIn((*reinterpret_cast< QByteArray(*)>(_a[1])),(*reinterpret_cast< MyClient*(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3])),(*reinterpret_cast< QString(*)>(_a[4]))); break;
+        case 1: _t->keyGenerated((*reinterpret_cast< QByteArray(*)>(_a[1])),(*reinterpret_cast< MyClient*(*)>(_a[2])),(*reinterpret_cast< MyClient*(*)>(_a[3])),(*reinterpret_cast< QString(*)>(_a[4]))); break;
+        case 2: _t->disconnected((*reinterpret_cast< QString(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -97,16 +102,23 @@ void MyTask::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         int *result = reinterpret_cast<int *>(_a[0]);
         void **func = reinterpret_cast<void **>(_a[1]);
         {
-            typedef void (MyTask::*_t)(QByteArray , MyClient * );
+            typedef void (MyTask::*_t)(QByteArray , MyClient * , QString , QString );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&MyTask::loggedIn)) {
                 *result = 0;
                 return;
             }
         }
         {
-            typedef void (MyTask::*_t)(QByteArray , MyClient * , MyClient * );
+            typedef void (MyTask::*_t)(QByteArray , MyClient * , MyClient * , QString );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&MyTask::keyGenerated)) {
                 *result = 1;
+                return;
+            }
+        }
+        {
+            typedef void (MyTask::*_t)(QString );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&MyTask::disconnected)) {
+                *result = 2;
                 return;
             }
         }
@@ -140,28 +152,35 @@ int MyTask::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
+        if (_id < 3)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 3;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 2)
+        if (_id < 3)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 3;
     }
     return _id;
 }
 
 // SIGNAL 0
-void MyTask::loggedIn(QByteArray _t1, MyClient * _t2)
+void MyTask::loggedIn(QByteArray _t1, MyClient * _t2, QString _t3, QString _t4)
 {
-    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)) };
+    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)), const_cast<void*>(reinterpret_cast<const void*>(&_t3)), const_cast<void*>(reinterpret_cast<const void*>(&_t4)) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 
 // SIGNAL 1
-void MyTask::keyGenerated(QByteArray _t1, MyClient * _t2, MyClient * _t3)
+void MyTask::keyGenerated(QByteArray _t1, MyClient * _t2, MyClient * _t3, QString _t4)
 {
-    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)), const_cast<void*>(reinterpret_cast<const void*>(&_t3)) };
+    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)), const_cast<void*>(reinterpret_cast<const void*>(&_t3)), const_cast<void*>(reinterpret_cast<const void*>(&_t4)) };
     QMetaObject::activate(this, &staticMetaObject, 1, _a);
+}
+
+// SIGNAL 2
+void MyTask::disconnected(QString _t1)
+{
+    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 2, _a);
 }
 QT_END_MOC_NAMESPACE

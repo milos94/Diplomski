@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MyServer_t {
-    QByteArrayData data[6];
-    char stringdata0[58];
+    QByteArrayData data[10];
+    char stringdata0[106];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -30,15 +30,21 @@ struct qt_meta_stringdata_MyServer_t {
 static const qt_meta_stringdata_MyServer_t qt_meta_stringdata_MyServer = {
     {
 QT_MOC_LITERAL(0, 0, 8), // "MyServer"
-QT_MOC_LITERAL(1, 9, 15), // "messageReceived"
-QT_MOC_LITERAL(2, 25, 0), // ""
-QT_MOC_LITERAL(3, 26, 9), // "MyClient*"
-QT_MOC_LITERAL(4, 36, 8), // "loggedIn"
-QT_MOC_LITERAL(5, 45, 12) // "keyGenerated"
+QT_MOC_LITERAL(1, 9, 10), // "userAddRem"
+QT_MOC_LITERAL(2, 20, 0), // ""
+QT_MOC_LITERAL(3, 21, 7), // "logData"
+QT_MOC_LITERAL(4, 29, 15), // "messageReceived"
+QT_MOC_LITERAL(5, 45, 9), // "MyClient*"
+QT_MOC_LITERAL(6, 55, 8), // "loggedIn"
+QT_MOC_LITERAL(7, 64, 12), // "keyGenerated"
+QT_MOC_LITERAL(8, 77, 17), // "clientDisconected"
+QT_MOC_LITERAL(9, 95, 10) // "logMessage"
 
     },
-    "MyServer\0messageReceived\0\0MyClient*\0"
-    "loggedIn\0keyGenerated"
+    "MyServer\0userAddRem\0\0logData\0"
+    "messageReceived\0MyClient*\0loggedIn\0"
+    "keyGenerated\0clientDisconected\0"
+    "logMessage"
 };
 #undef QT_MOC_LITERAL
 
@@ -48,22 +54,34 @@ static const uint qt_meta_data_MyServer[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       3,   14, // methods
+       7,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       0,       // signalCount
+       2,       // signalCount
+
+ // signals: name, argc, parameters, tag, flags
+       1,    2,   49,    2, 0x06 /* Public */,
+       3,    1,   54,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       1,    2,   29,    2, 0x0a /* Public */,
-       4,    2,   34,    2, 0x0a /* Public */,
-       5,    3,   39,    2, 0x0a /* Public */,
+       4,    2,   57,    2, 0x0a /* Public */,
+       6,    4,   62,    2, 0x0a /* Public */,
+       7,    4,   71,    2, 0x0a /* Public */,
+       8,    1,   80,    2, 0x0a /* Public */,
+       9,    1,   83,    2, 0x0a /* Public */,
+
+ // signals: parameters
+    QMetaType::Void, QMetaType::Bool, QMetaType::QString,    2,    2,
+    QMetaType::Void, QMetaType::QString,    2,
 
  // slots: parameters
-    QMetaType::Void, QMetaType::QByteArray, 0x80000000 | 3,    2,    2,
-    QMetaType::Void, QMetaType::QByteArray, 0x80000000 | 3,    2,    2,
-    QMetaType::Void, QMetaType::QByteArray, 0x80000000 | 3, 0x80000000 | 3,    2,    2,    2,
+    QMetaType::Void, QMetaType::QByteArray, 0x80000000 | 5,    2,    2,
+    QMetaType::Void, QMetaType::QByteArray, 0x80000000 | 5, QMetaType::QString, QMetaType::QString,    2,    2,    2,    2,
+    QMetaType::Void, QMetaType::QByteArray, 0x80000000 | 5, 0x80000000 | 5, QMetaType::QString,    2,    2,    2,    2,
+    QMetaType::Void, QMetaType::QString,    2,
+    QMetaType::Void, QMetaType::QString,    2,
 
        0        // eod
 };
@@ -74,29 +92,33 @@ void MyServer::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
         MyServer *_t = static_cast<MyServer *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->messageReceived((*reinterpret_cast< QByteArray(*)>(_a[1])),(*reinterpret_cast< MyClient*(*)>(_a[2]))); break;
-        case 1: _t->loggedIn((*reinterpret_cast< QByteArray(*)>(_a[1])),(*reinterpret_cast< MyClient*(*)>(_a[2]))); break;
-        case 2: _t->keyGenerated((*reinterpret_cast< QByteArray(*)>(_a[1])),(*reinterpret_cast< MyClient*(*)>(_a[2])),(*reinterpret_cast< MyClient*(*)>(_a[3]))); break;
+        case 0: _t->userAddRem((*reinterpret_cast< bool(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
+        case 1: _t->logData((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 2: _t->messageReceived((*reinterpret_cast< QByteArray(*)>(_a[1])),(*reinterpret_cast< MyClient*(*)>(_a[2]))); break;
+        case 3: _t->loggedIn((*reinterpret_cast< QByteArray(*)>(_a[1])),(*reinterpret_cast< MyClient*(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3])),(*reinterpret_cast< QString(*)>(_a[4]))); break;
+        case 4: _t->keyGenerated((*reinterpret_cast< QByteArray(*)>(_a[1])),(*reinterpret_cast< MyClient*(*)>(_a[2])),(*reinterpret_cast< MyClient*(*)>(_a[3])),(*reinterpret_cast< QString(*)>(_a[4]))); break;
+        case 5: _t->clientDisconected((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 6: _t->logMessage((*reinterpret_cast< QString(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         switch (_id) {
         default: *reinterpret_cast<int*>(_a[0]) = -1; break;
-        case 0:
-            switch (*reinterpret_cast<int*>(_a[1])) {
-            default: *reinterpret_cast<int*>(_a[0]) = -1; break;
-            case 1:
-                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< MyClient* >(); break;
-            }
-            break;
-        case 1:
-            switch (*reinterpret_cast<int*>(_a[1])) {
-            default: *reinterpret_cast<int*>(_a[0]) = -1; break;
-            case 1:
-                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< MyClient* >(); break;
-            }
-            break;
         case 2:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+            case 1:
+                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< MyClient* >(); break;
+            }
+            break;
+        case 3:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+            case 1:
+                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< MyClient* >(); break;
+            }
+            break;
+        case 4:
             switch (*reinterpret_cast<int*>(_a[1])) {
             default: *reinterpret_cast<int*>(_a[0]) = -1; break;
             case 2:
@@ -104,6 +126,23 @@ void MyServer::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
                 *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< MyClient* >(); break;
             }
             break;
+        }
+    } else if (_c == QMetaObject::IndexOfMethod) {
+        int *result = reinterpret_cast<int *>(_a[0]);
+        void **func = reinterpret_cast<void **>(_a[1]);
+        {
+            typedef void (MyServer::*_t)(bool , QString );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&MyServer::userAddRem)) {
+                *result = 0;
+                return;
+            }
+        }
+        {
+            typedef void (MyServer::*_t)(QString );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&MyServer::logData)) {
+                *result = 1;
+                return;
+            }
         }
     }
 }
@@ -133,14 +172,28 @@ int MyServer::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 3)
+        if (_id < 7)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 3;
+        _id -= 7;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 3)
+        if (_id < 7)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 3;
+        _id -= 7;
     }
     return _id;
+}
+
+// SIGNAL 0
+void MyServer::userAddRem(bool _t1, QString _t2)
+{
+    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)) };
+    QMetaObject::activate(this, &staticMetaObject, 0, _a);
+}
+
+// SIGNAL 1
+void MyServer::logData(QString _t1)
+{
+    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 1, _a);
 }
 QT_END_MOC_NAMESPACE
