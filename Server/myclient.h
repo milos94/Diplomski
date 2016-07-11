@@ -7,6 +7,7 @@
 #include <QThreadPool>
 #include <QDebug>
 #include <QSslKey>
+#include <QHostAddress>
 #include <QSslConfiguration>
 #include <QtCrypto/QtCrypto>
 #include <string>
@@ -25,11 +26,13 @@ public:
     void sendMessage(QByteArray data){ socket->write(data);}
     QString getName(){ return name;}
     void setName(QString name){ this->name=name;}
+    QString getAddrAndPort();
     ~MyClient();
 
 signals:
     void msgRcv(QByteArray,MyClient*);
     void cliDisconeccted(QString);
+    void logMessage(QString);
 
 public slots:
     void connected();

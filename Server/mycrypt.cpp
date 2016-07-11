@@ -50,11 +50,9 @@ QByteArray MyCrypt::decrypt(QByteArray data){
         chiper2.clear();
         chiper2=data.data();
         StringSource(chiper2,true,new HexDecoder(new StringSink(chiper1)));
-        qDebug()<<chiper1.c_str();
         chiper2.clear();
         StringSource(chiper1,true,
                      new StreamTransformationFilter(*d, new StringSink(chiper2)));
-        qDebug()<<chiper2.c_str();
         data.clear();
         data.append(chiper2.c_str());
         delete d;

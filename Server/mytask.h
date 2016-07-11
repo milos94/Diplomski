@@ -4,6 +4,8 @@
 #include <QObject>
 #include <QRunnable>
 #include <QDebug>
+#include <QListWidget>
+#include <QTextEdit>
 #include "mycrypt.h"
 #include "myclient.h"
 #include "myclientarray.h"
@@ -32,8 +34,10 @@ protected:
     void run();
 
 signals:
-    void loggedIn(QByteArray,MyClient*);
-    void keyGenerated(QByteArray,MyClient*,MyClient*);
+    void loggedIn(QByteArray,MyClient*,QString,QString);
+    void keyGenerated(QByteArray,MyClient*,MyClient*,QString);
+    void disconnected(QString);
+
 };
 
 #endif // MYTASK_H

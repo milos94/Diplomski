@@ -1,7 +1,9 @@
 #include "myserver.h"
 
-MyServer::MyServer(QObject *parent):QTcpServer(parent)
+MyServer::MyServer(QTextEdit *txt,QListWidget *lst,QObject *parent):QTcpServer(parent)
 {
+    log=txt;
+    userList=lst;
     bool ok=true;
 
     clients=new ClientArray;
@@ -10,7 +12,7 @@ MyServer::MyServer(QObject *parent):QTcpServer(parent)
     QByteArray key;
     QByteArray cert;
 
-    qDebug()<<"Loading key...";
+    log->append("Loading key...");
 
     QFile file_key("cert.key");
 
@@ -22,12 +24,12 @@ MyServer::MyServer(QObject *parent):QTcpServer(parent)
     else
     {
         ok=false;
-        qDebug() << file_key.errorString();
+        log->append(file_key.errorString());
     }
     sslKey=new QSslKey(key,QSsl::Rsa);
-    qDebug()<<"RSA key loaded";
+    log->append("RSA key loaded");
 
-    qDebug()<<"Loading certificate...";
+    log->append("Loading certificate...");
     QFile file_cert("cert.crt");
     if(file_cert.open(QIODevice::ReadOnly))
     {
@@ -37,22 +39,22 @@ MyServer::MyServer(QObject *parent):QTcpServer(parent)
     else
     {
         ok=false;
-        qDebug() << file_cert.errorString();
+        log->append(file_cert.errorString());
     }
 
     sslCertificate=new QSslCertificate(cert);
-    qDebug()<<"Certificate loaded";
+    log->append("Certificate loaded");
 
     if(ok)
         StartServer();
 }
 
 void MyServer::StartServer(){
-    qDebug()<<"Starting server...";
+    log->append("Starting server...");
     if(this->listen(QHostAddress::LocalHost,1234)){
-        qDebug()<<"Server Started";
+        log->append("Server Started");
     }else{
-        qDebug()<<"Server could not start";
+        log->append("Server could not start");
     }
 
 }
@@ -67,46 +69,60 @@ void MyServer::incomingConnection(qintptr socketDescriptor){
 
     connect(client,SIGNAL(cliDisconeccted(QString)),
             this,SLOT(clientDisconected(QString)),Qt::DirectConnection);
+
+    connect(client,SIGNAL(logMessage(QString)),
+            this,SLOT(logMessage(QString)),Qt::AutoConnection);
 }
 
 void MyServer::messageReceived(QByteArray str,MyClient* cli){
 
     MyTask *task=new MyTask(str,clients,crypt,cli);
+
     task->setAutoDelete(true);
 
-    connect(task,SIGNAL(loggedIn(QByteArray,MyClient*)),
-            this,SLOT(loggedIn(QByteArray,MyClient*)),Qt::QueuedConnection);
+    connect(task,SIGNAL(loggedIn(QByteArray,MyClient*,QString,QString)),
+            this,SLOT(loggedIn(QByteArray,MyClient*,QString,QString)),Qt::QueuedConnection);
 
-    connect(task,SIGNAL(keyGenerated(QByteArray,MyClient*,MyClient*)),
-            this,SLOT(keyGenerated(QByteArray,MyClient*,MyClient*)),Qt::QueuedConnection);
+    connect(task,SIGNAL(keyGenerated(QByteArray,MyClient*,MyClient*,QString)),
+            this,SLOT(keyGenerated(QByteArray,MyClient*,MyClient*,QString)),Qt::QueuedConnection);
+
+    connect(task,SIGNAL(disconnected(QString)),
+            this,SLOT(clientDisconected(QString)),Qt::QueuedConnection);
 
     QThreadPool::globalInstance()->start(task);
 }
 
-void MyServer::loggedIn(QByteArray msg, MyClient *client){
+void MyServer::loggedIn(QByteArray msg, MyClient *client,QString name,QString logmessage){
 
     client->sendMessage(msg);
-    qDebug()<<msg.data();
+    log->append(logmessage);
+    if(name.compare("NO")!=0)
+        userList->addItem(new QListWidgetItem(name));
+
 }
 
-void MyServer::keyGenerated(QByteArray data, MyClient *first, MyClient *second){
+void MyServer::keyGenerated(QByteArray data, MyClient *first, MyClient *second,QString msg){
 
     if(first!=nullptr) first->sendMessage(data);
     if(second!=nullptr) second->sendMessage(data);
+
+    log->append(msg);
 }
 
 void MyServer::clientDisconected(QString name){
 
-    try{
     clients->remove(name);
-    }catch(exception e)
-    {
-        qDebug()<<e.what();
-    }
+
+}
+
+void MyServer::logMessage(QString msg){
+
+    log->append(msg);
 }
 
  MyServer::~MyServer(){
-
+     userList=nullptr;
+     log=nullptr;
      delete sslKey;
      delete sslCertificate;
      delete clients;

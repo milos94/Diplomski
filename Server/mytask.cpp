@@ -12,53 +12,60 @@ MyTask::MyTask(QByteArray str,ClientArray* clients,MyCrypt *crypt,MyClient* cli)
 void MyTask::run(){
     str=crypt->decrypt(str);
     QString message=str.data();
+
     list=message.split(' ');
-    for(int i=0;i<list.length();i++)
-        qDebug()<<list[i];
+
     if(list[0].compare("LOGIN")==0) LogIn();
     else if (list[0]=="LOGOFF")  LogOff();
     else if (list[0]== "CONN") startConversation();
 }
 
 void MyTask::LogIn(){
-    qDebug()<<"LOGIN STARTED";
+    QString logstr="Login started\n"+list[1]+' ';
+    QString name="NO";
     QByteArray response;
     if(ClientList::usernames.contains(list[1]) &&
                 ClientList::passwords.at(ClientList::usernames.indexOf(list[1]))==list[2]){
         if(clients->contains(list[1])){
                 response.append("FAIL1");
+                logstr+="Login failed: User already loggedin!";
         }else{
         cli->setName(list[1]);
         clients->add(cli);
+        name=list[1];
+        logstr+="Login sucessful!";
         response.append("SUCESS");
         }
     }else{
+        logstr+="Login failed: Wrong username/password!";
         response.append("FAIL2");
     }
-    qDebug()<<response.data();
     response=crypt->encrypt(response);
-    emit loggedIn(response,cli);
+    emit loggedIn(response,cli,name,logstr);
 
 }
 
 void MyTask::startConversation(){
     QByteArray response;
-    if(clients->contains(list[1]) || clients->contains(list[2])){
+    QString logstr;
+    if(clients->contains(list[1]) && clients->contains(list[2])){
         response.append("KEY "+list[1]+' '+list[2]+' ');
         response.append(crypt->makeKey()+' ');
-        response.append(crypt->makeIV());
-        qDebug()<<response.data();
+        response.append(crypt->makeIV()+' ');
+        response.append(cli->getAddrAndPort());
+        logstr=response.data();
         response=crypt->encrypt(response);
     }else {
         response.append("FAIL3");
+        logstr=response.data();
+        response=crypt->encrypt(response);
     }
-    qDebug()<<response.data();
-    emit keyGenerated(response,clients->operator [](list[1]),clients->operator [](list[2]));
+    emit keyGenerated(response,clients->operator [](list[1]),clients->operator [](list[2]),logstr);
 }
 
 
 void MyTask::LogOff(){
-    clients->remove(cli->getName());
+    emit disconnected(list[1]);
 }
 
 MyTask::~MyTask(){

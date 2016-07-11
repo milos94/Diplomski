@@ -9,6 +9,8 @@
 #include <QSslKey>
 #include <QStringList>
 #include <QFile>
+#include <QTextEdit>
+#include <QListWidget>
 #include "myclient.h"
 #include "mytask.h"
 #include "clientarray.h"
@@ -18,7 +20,7 @@ class MyServer : public QTcpServer
 {
     Q_OBJECT
 public:
-    MyServer(QObject *parent=nullptr);
+    MyServer(QTextEdit*,QListWidget*,QObject *parent=nullptr);
     void StartServer();
     ~MyServer();
 protected:
@@ -29,12 +31,20 @@ private:
     QSslCertificate *sslCertificate;
     ClientArray *clients;
     MyCrypt *crypt;
+    QTextEdit *log;
+    QListWidget *userList;
+
 
 public slots:
     void messageReceived(QByteArray,MyClient*);
-    void loggedIn(QByteArray,MyClient*);
-    void keyGenerated(QByteArray,MyClient*,MyClient*);
+    void loggedIn(QByteArray,MyClient*,QString,QString);
+    void keyGenerated(QByteArray,MyClient*,MyClient*,QString);
     void clientDisconected(QString);
+    void logMessage(QString);
+
+signals:
+    void userAddRem(bool,QString);
+    void logData(QString);
 };
 
 #endif // MYSERVER_H

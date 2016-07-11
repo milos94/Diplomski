@@ -7,9 +7,10 @@ Server::Server(QWidget *parent) :
 {
     ui->setupUi(this);
     if(!QSslSocket::supportsSsl()){
-        qDebug()<<"SSL NOT SUPPORTED!";
+        ui->txtLog->append("SSL NOT SUPPORTED!\n\r");
+    }else{
+    srv=new MyServer(ui->txtLog,ui->listUsers,this);
     }
-    srv=new MyServer;
 }
 
 Server::~Server()

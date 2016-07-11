@@ -22,9 +22,6 @@ void MyClient::setSocket(qintptr Descriptor,QSslKey key,QSslCertificate cert){
 
     socket->startServerEncryption();
 
-
-
-    qDebug()<< socketDescriptor <<"Client connected...";
 }
 
 void MyClient::connected(){
@@ -32,13 +29,12 @@ void MyClient::connected(){
 }
 
 void MyClient::disconnected(){
-    qDebug()<< socketDescriptor<<" Disconnected";
+    emit logMessage(QString::number(socketDescriptor)+" Disconnected");
     emit cliDisconeccted(name);
 }
 
 void MyClient::readyRead(){
     QByteArray msg=socket->readAll();
-    qDebug()<<socketDescriptor<<" sent:"<< msg;
     emit msgRcv(msg,this);
 }
 
@@ -50,8 +46,16 @@ void MyClient::sendMessage(QString message){
 }
 
 void MyClient::ready(){
-    qDebug()<<socketDescriptor<<" Client connected...";
+    emit logMessage(QString::number(socketDescriptor)+" Client connected...");
 
+}
+
+QString MyClient::getAddrAndPort(){
+
+    QString str;
+    str.append(socket->peerAddress().toString()+' ');
+    str.append(QString::number(socket->peerPort()));
+    return str;
 }
 
 MyClient::~MyClient(){

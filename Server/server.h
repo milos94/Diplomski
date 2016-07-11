@@ -1,6 +1,7 @@
 #ifndef SERVER_H
 #define SERVER_H
 
+#include <QObject>
 #include <QMainWindow>
 #include <QSslSocket>
 #include "myserver.h"
@@ -21,6 +22,8 @@ public:
 private:
     MyServer *srv;
     Ui::Server *ui;
+
+
 };
 
 #endif // SERVER_H
