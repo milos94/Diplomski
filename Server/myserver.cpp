@@ -104,7 +104,7 @@ void MyServer::loggedIn(QByteArray msg, MyClient *client,QString name,QString lo
 void MyServer::keyGenerated(QByteArray data, MyClient *first, MyClient *second,QString msg){
 
     if(first!=nullptr) first->sendMessage(data);
-    if(second!=nullptr) second->sendMessage(data);
+    //if(second!=nullptr) second->sendMessage(data);
 
     log->append(msg);
 }

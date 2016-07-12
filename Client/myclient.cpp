@@ -12,6 +12,8 @@ void MyClient::setSocket(qintptr descriptor){
 }
 
 void MyClient::readyRead(){
-    emit msgRcv(socket->readAll(),socket);
-    socket=nullptr;
+    QByteArray data=socket->readAll();
+    qDebug()<<data.data();
+    emit msgRcv(data,socket);
+    disconnect(socket,SIGNAL(readyRead()),this,SLOT(readyRead()));
 }

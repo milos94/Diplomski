@@ -14,8 +14,10 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
@@ -25,9 +27,11 @@ QT_BEGIN_NAMESPACE
 class Ui_Client
 {
 public:
+    QWidget *centralWidget;
+    QPushButton *btnStartChat;
+    QLineEdit *lineEdit;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
-    QWidget *centralWidget;
     QStatusBar *statusBar;
 
     void setupUi(QMainWindow *Client)
@@ -35,15 +39,22 @@ public:
         if (Client->objectName().isEmpty())
             Client->setObjectName(QStringLiteral("Client"));
         Client->resize(400, 300);
+        centralWidget = new QWidget(Client);
+        centralWidget->setObjectName(QStringLiteral("centralWidget"));
+        btnStartChat = new QPushButton(centralWidget);
+        btnStartChat->setObjectName(QStringLiteral("btnStartChat"));
+        btnStartChat->setGeometry(QRect(160, 200, 80, 22));
+        lineEdit = new QLineEdit(centralWidget);
+        lineEdit->setObjectName(QStringLiteral("lineEdit"));
+        lineEdit->setGeometry(QRect(150, 160, 113, 22));
+        Client->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(Client);
         menuBar->setObjectName(QStringLiteral("menuBar"));
+        menuBar->setGeometry(QRect(0, 0, 400, 19));
         Client->setMenuBar(menuBar);
         mainToolBar = new QToolBar(Client);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
-        Client->addToolBar(mainToolBar);
-        centralWidget = new QWidget(Client);
-        centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        Client->setCentralWidget(centralWidget);
+        Client->addToolBar(Qt::TopToolBarArea, mainToolBar);
         statusBar = new QStatusBar(Client);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         Client->setStatusBar(statusBar);
@@ -56,6 +67,7 @@ public:
     void retranslateUi(QMainWindow *Client)
     {
         Client->setWindowTitle(QApplication::translate("Client", "Client", 0));
+        btnStartChat->setText(QApplication::translate("Client", "Start Chat", 0));
     } // retranslateUi
 
 };

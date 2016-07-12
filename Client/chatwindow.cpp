@@ -24,18 +24,24 @@ ChatWindow::~ChatWindow()
     delete ui;
 }
 void ChatWindow::read(){
+    QByteArray rData=socket->readAll();
+    rData=crypt->decrypt(rData);
+    qDebug()<<rData.data();
     QByteArray data;
     data.append(name+": ");
-    data.append(crypt->decrypt(socket->readAll()));
+    data.append(rData);
     qDebug()<< data.data();
     ui->txtDisplayMessages->appendPlainText(data);
+
 }
 
 void ChatWindow::send(){
     QByteArray data;
+    data.clear();
     data.append(ui->txtMessage->text());
     data=crypt->encrypt(data);
     socket->write(data);
+    qDebug()<<data.data();
     data.clear();
     data.append("You: ");
     data.append(ui->txtMessage->text());

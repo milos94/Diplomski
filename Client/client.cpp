@@ -38,7 +38,7 @@ void Client::ServerMessage(QByteArray msg){
 
 
     if(strList[0].compare("KEY")==0){
-        if(strList[2].compare(name)==0){
+        if(strList[1].compare(name)==0){
             socket=new QTcpSocket;
             qintptr port=strList[6].toLongLong();
             socket->connectToHost(strList[5],port);
@@ -56,7 +56,6 @@ void Client::socketConnected(){
     iv.append(strList[4]);
     ChatWindow *c=new ChatWindow(socket,strList[2],key,iv);
     c->show();
-    socket=nullptr;
     this->hide();
 }
 

@@ -17,5 +17,4 @@ void MyServer::incomingConnection(qintptr descriptor){
 
 void MyServer::msgRcv(QByteArray msg,QTcpSocket* soc){
     emit someoneConnected(msg,soc);
-    soc=nullptr;
 }

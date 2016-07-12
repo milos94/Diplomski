@@ -57,6 +57,7 @@ void LogInDialog::readMessage(QByteArray msg){
     else if(str.compare("SUCESS")==0){
         Client *clWindow= new Client(cli,crypt,ui->txtUserName->text());
         clWindow->show();
+        disconnect(cli,SIGNAL(ServerMessage(QByteArray)),this,SLOT(readMessage(QByteArray)));
         this->close();
     }
     ui->txtUserName->setEnabled(true);
