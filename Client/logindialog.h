@@ -5,6 +5,7 @@
 #include <QMessageBox>
 #include "sslclient.h"
 #include "mycrypt.h"
+#include "client.h"
 
 namespace Ui {
 class LogInDialog;

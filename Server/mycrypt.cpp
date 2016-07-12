@@ -2,8 +2,6 @@
 
 MyCrypt::MyCrypt()
 {
-    prng.GenerateBlock(key,AES::MAX_KEYLENGTH);
-    prng.GenerateBlock(iv,AES::BLOCKSIZE);
 
     std::string strKey="1AAE0C7222C0D716B4A197321E602F2BE31D4344AF0A0577EE029D23154DA9EA";
     std::string strIV="81D605853779AD15B106C8FDE4E2A9D3";
@@ -11,8 +9,13 @@ MyCrypt::MyCrypt()
     qDebug()<<strKey.c_str();
     qDebug()<<strIV.c_str();
 
-    memcpy(key,strKey.c_str(),AES::MAX_KEYLENGTH);
-    memcpy(iv,strIV.c_str(),AES::BLOCKSIZE);
+    std::string sKey,sIv;
+
+    StringSource(strKey,true,new HexDecoder(new StringSink(sKey)));
+    StringSource(strIV,true,new HexDecoder(new StringSink(sIv)));
+
+    memcpy(key,sKey.c_str(),AES::MAX_KEYLENGTH);
+    memcpy(iv,sIv.c_str(),AES::BLOCKSIZE);
 
 
 }

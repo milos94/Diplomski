@@ -18,12 +18,19 @@ SOURCES += main.cpp\
         client.cpp \
     logindialog.cpp \
     sslclient.cpp \
-    mycrypt.cpp
+    mycrypt.cpp \
+    myserver.cpp \
+    myclient.cpp \
+    chatwindow.cpp
 
 HEADERS  += client.h \
     logindialog.h \
     sslclient.h \
-    mycrypt.h
+    mycrypt.h \
+    myserver.h \
+    myclient.h \
+    chatwindow.h
 
 FORMS    += client.ui \
-    logindialog.ui
+    logindialog.ui \
+    chatwindow.ui

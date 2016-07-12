@@ -53,6 +53,7 @@ void MyTask::startConversation(){
         response.append(crypt->makeKey()+' ');
         response.append(crypt->makeIV()+' ');
         response.append(cli->getAddrAndPort());
+        response.append(list[3]);
         logstr=response.data();
         response=crypt->encrypt(response);
     }else {

@@ -2,10 +2,13 @@
 
 MyCrypt::MyCrypt(std::string strKey,std::string strIV)
 {
+    std::string sKey,sIv;
 
+    StringSource(strKey,true,new HexDecoder(new StringSink(sKey)));
+    StringSource(strIV,true,new HexDecoder(new StringSink(sIv)));
 
-    memcpy(key,strKey.c_str(),AES::MAX_KEYLENGTH);
-    memcpy(iv,strIV.c_str(),AES::BLOCKSIZE);
+    memcpy(key,sKey.c_str(),AES::MAX_KEYLENGTH);
+    memcpy(iv,sIv.c_str(),AES::BLOCKSIZE);
 
 
 }

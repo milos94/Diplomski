@@ -54,10 +54,10 @@ QString MyClient::getAddrAndPort(){
 
     QString str;
     str.append(socket->peerAddress().toString()+' ');
-    str.append(QString::number(socket->peerPort()));
     return str;
 }
 
 MyClient::~MyClient(){
+
     delete socket;
 }
