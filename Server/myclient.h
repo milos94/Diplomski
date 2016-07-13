@@ -22,8 +22,8 @@ public:
     explicit MyClient(QObject *parent = 0);
     void setSocket(qintptr Descriptor,QSslKey,QSslCertificate);
     void sendMessage(QString message);
-    void sendMessage(const char* msg){ socket->write(msg);}
-    void sendMessage(QByteArray data){ socket->write(data);}
+    void sendMessage(const char* msg){ socket->write(msg);  socket->flush();}
+    void sendMessage(QByteArray data){ socket->write(data); socket->flush();}
     QString getName(){ return name;}
     void setName(QString name){ this->name=name;}
     QString getAddrAndPort();

@@ -14,7 +14,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHeaderView>
-#include <QtWidgets/QLineEdit>
+#include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
@@ -29,7 +29,7 @@ class Ui_Client
 public:
     QWidget *centralWidget;
     QPushButton *btnStartChat;
-    QLineEdit *lineEdit;
+    QListWidget *lstUsers;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -38,19 +38,19 @@ public:
     {
         if (Client->objectName().isEmpty())
             Client->setObjectName(QStringLiteral("Client"));
-        Client->resize(400, 300);
+        Client->resize(161, 300);
         centralWidget = new QWidget(Client);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         btnStartChat = new QPushButton(centralWidget);
         btnStartChat->setObjectName(QStringLiteral("btnStartChat"));
-        btnStartChat->setGeometry(QRect(160, 200, 80, 22));
-        lineEdit = new QLineEdit(centralWidget);
-        lineEdit->setObjectName(QStringLiteral("lineEdit"));
-        lineEdit->setGeometry(QRect(150, 160, 113, 22));
+        btnStartChat->setGeometry(QRect(9, 200, 141, 22));
+        lstUsers = new QListWidget(centralWidget);
+        lstUsers->setObjectName(QStringLiteral("lstUsers"));
+        lstUsers->setGeometry(QRect(10, 0, 141, 192));
         Client->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(Client);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 400, 19));
+        menuBar->setGeometry(QRect(0, 0, 161, 19));
         Client->setMenuBar(menuBar);
         mainToolBar = new QToolBar(Client);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));

@@ -43,6 +43,7 @@ void MyClient::readyRead(){
 void MyClient::sendMessage(QString message){
 
     socket->write(message.toUtf8());
+    socket->flush();
 }
 
 void MyClient::ready(){

@@ -32,28 +32,33 @@ void LogInDialog::connectionEstablised(bool ok){
 }
 
 void LogInDialog::CancleClicked(){
+
     this->close();
 }
 
 void LogInDialog::LogInClicked(){
+
     QByteArray message("LOGIN ");
+
     message.append(ui->txtUserName->text()+' ');
     message.append(ui->txtPass->text());
     message=crypt->encrypt(message);
     cli->sendMessage(message);
+
     ui->txtUserName->setEnabled(false);
     ui->txtPass->setEnabled(false);
     ui->btnLogIn->setEnabled(false);
 }
 
 void LogInDialog::readMessage(QByteArray msg){
-    msg=crypt->decrypt(msg);
-    QString str=msg.data();
     qDebug()<<msg.data();
+    msg=crypt->decrypt(msg);
+    qDebug()<<msg.data();
+    QString str=msg.data();
     if(str.compare("FAIL1")==0)
         ui->lblStatus->setText("User already logged in!");
     else if(str.compare("FAIL2")==0)
-        ui->lblStatus->setText("Wrong username/password!");
+        ui->lblStatus->setText("Wrong username/password!");    
     else if(str.compare("SUCESS")==0){
         Client *clWindow= new Client(cli,crypt,ui->txtUserName->text());
         clWindow->show();

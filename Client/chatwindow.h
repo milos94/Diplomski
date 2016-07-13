@@ -24,10 +24,15 @@ private:
     QTcpSocket* socket;
     MyCrypt *crypt;
     QString name;
+signals:
+    void endConversation(ChatWindow*);
+protected:
+    void closeEvent(QCloseEvent*);
 
 public slots:
     void read();
     void send();
+    void clientDisconnected();
 };
 
 #endif // CHATWINDOW_H

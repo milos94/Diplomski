@@ -6,6 +6,8 @@ MyServer::MyServer(QTextEdit *txt,QListWidget *lst,QObject *parent):QTcpServer(p
     userList=lst;
     bool ok=true;
 
+    log->setReadOnly(true);
+
     clients=new ClientArray;
     crypt=new MyCrypt;
 
@@ -51,7 +53,7 @@ MyServer::MyServer(QTextEdit *txt,QListWidget *lst,QObject *parent):QTcpServer(p
 
 void MyServer::StartServer(){
     log->append("Starting server...");
-    if(this->listen(QHostAddress::LocalHost,1234)){
+    if(this->listen(QHostAddress::Any,1234)){
         log->append("Server Started");
     }else{
         log->append("Server could not start");
@@ -83,41 +85,72 @@ void MyServer::messageReceived(QByteArray str,MyClient* cli){
     connect(task,SIGNAL(loggedIn(QByteArray,MyClient*,QString,QString)),
             this,SLOT(loggedIn(QByteArray,MyClient*,QString,QString)),Qt::QueuedConnection);
 
-    connect(task,SIGNAL(keyGenerated(QByteArray,MyClient*,MyClient*,QString)),
-            this,SLOT(keyGenerated(QByteArray,MyClient*,MyClient*,QString)),Qt::QueuedConnection);
+    connect(task,SIGNAL(keyGenerated(QByteArray,MyClient*,QString)),
+            this,SLOT(keyGenerated(QByteArray,MyClient*,QString)),Qt::QueuedConnection);
 
     connect(task,SIGNAL(disconnected(QString)),
             this,SLOT(clientDisconected(QString)),Qt::QueuedConnection);
+
+    connect(task,SIGNAL(sendOnlineUsers(MyClient*)),
+            this,SLOT(sendOnlineUsers(MyClient*)),Qt::QueuedConnection);
 
     QThreadPool::globalInstance()->start(task);
 }
 
 void MyServer::loggedIn(QByteArray msg, MyClient *client,QString name,QString logmessage){
 
+
     client->sendMessage(msg);
     log->append(logmessage);
-    if(name.compare("NO")!=0)
-        userList->addItem(new QListWidgetItem(name));
+    qDebug()<<msg.data();
 
+    if(name.compare("NO")!=0){
+        QByteArray data;
+        data.append(name);
+        data=crypt->encrypt(data);
+        userList->addItem(name);
+        for(QString s : onlineUsers)
+            clients->operator [](s)->sendMessage(data);
+
+        onlineUsers.append(name);
+    }
 }
 
-void MyServer::keyGenerated(QByteArray data, MyClient *first, MyClient *second,QString msg){
+void MyServer::keyGenerated(QByteArray data, MyClient *first,QString msg){
 
     if(first!=nullptr) first->sendMessage(data);
-    //if(second!=nullptr) second->sendMessage(data);
 
     log->append(msg);
 }
 
 void MyServer::clientDisconected(QString name){
-
+    onlineUsers.removeAt(onlineUsers.indexOf(name));
+    userList->clear();
     clients->remove(name);
-
+    MyClient *temp;
+    QByteArray data;
+    data.append("DISCC "+name);
+    data=crypt->encrypt(data);
+    for(QString s : onlineUsers){
+        userList->addItem(s);
+        temp=clients->operator [](s);
+        temp->sendMessage(data);
+    }
+    temp=nullptr;
+    data.clear();
 }
 
 void MyServer::logMessage(QString msg){
 
     log->append(msg);
+}
+void MyServer::sendOnlineUsers(MyClient *cli){
+    QByteArray msg;
+    for(QString s : onlineUsers)
+        msg.append(s+' ');
+    msg=crypt->encrypt(msg);
+    cli->sendMessage(msg);
+
 }
 
  MyServer::~MyServer(){

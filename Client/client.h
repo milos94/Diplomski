@@ -26,6 +26,7 @@ public slots:
     void someoneConnected(QByteArray,QTcpSocket*);
     void startChat_click();
 
+
 private:
     Ui::Client *ui;
     MyCrypt *crypt;
@@ -35,7 +36,7 @@ private:
     qintptr port;
     QString name;
     QByteArray message;
-    QStringList strList;
+    QStringList strList,onlineUsers;
 
 };
 

@@ -21,6 +21,12 @@ Client::Client(SslClient* client,MyCrypt* crypt,QString name,QWidget *parent) :
 
     connect(ui->btnStartChat,SIGNAL(released()),
             this,SLOT(startChat_click()));
+
+    QByteArray msg;
+    msg.append("USRLIST");
+    msg=crypt->encrypt(msg);
+    client->sendMessage(msg);
+
 }
 
 Client::~Client()
@@ -32,10 +38,11 @@ Client::~Client()
 }
 
 void Client::ServerMessage(QByteArray msg){
+    qDebug()<<msg.data();
     message=crypt->decrypt(msg);
+    qDebug()<<message.data();
     QString str=message.data();
     strList=str.split(' ');
-
 
     if(strList[0].compare("KEY")==0){
         if(strList[1].compare(name)==0){
@@ -44,8 +51,26 @@ void Client::ServerMessage(QByteArray msg){
             socket->connectToHost(strList[5],port);
             connect(socket,SIGNAL(connected()),this,SLOT(socketConnected()));
         }
-     }else if(strList[0].compare("FAIL3")){
+     }else if(strList[0].compare("FAIL3")==0){
         qDebug()<<"Korisnik nije online";
+
+
+    }else if(strList[0].compare("DISCC")==0){
+        onlineUsers.removeAt(onlineUsers.indexOf(strList[1]));
+        ui->lstUsers->clear();
+        for(QString s:onlineUsers)
+            ui->lstUsers->addItem(s);
+    }
+
+
+    else{
+        for(QString s : strList){
+            if(s!=name && s!=""){
+                qDebug()<<s;
+                onlineUsers.append(s);
+                ui->lstUsers->addItem(s);
+            }
+        }
     }
  }
 
@@ -55,8 +80,8 @@ void Client::socketConnected(){
     key.append(strList[3]);
     iv.append(strList[4]);
     ChatWindow *c=new ChatWindow(socket,strList[2],key,iv);
+    socket=nullptr;
     c->show();
-    this->hide();
 }
 
 void Client::someoneConnected(QByteArray data, QTcpSocket *sock){
@@ -67,12 +92,18 @@ void Client::someoneConnected(QByteArray data, QTcpSocket *sock){
     key.append(strList[3]);
     iv.append(strList[4]);
     ChatWindow *c=new ChatWindow(sock,strList[1],key,iv);
+    sock=nullptr;
     c->show();
-    this->hide();
 }
 
 void Client::startChat_click(){
     QByteArray message;
-    message.append("CONN "+name+' '+ui->lineEdit->text()+' '+QString::number(port));
-    client->sendMessage(crypt->encrypt(message));
+    QListWidgetItem *selected=ui->lstUsers->currentItem();
+    if(selected!=nullptr){
+        selected->text();
+        message.append("CONN "+name+' '+    selected->text()+' '+QString::number(port));
+        client->sendMessage(crypt->encrypt(message));
+        selected=nullptr;
+    }
 }
+

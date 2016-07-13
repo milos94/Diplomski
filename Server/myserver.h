@@ -33,12 +33,14 @@ private:
     MyCrypt *crypt;
     QTextEdit *log;
     QListWidget *userList;
+    QStringList onlineUsers;
 
 
 public slots:
+    void sendOnlineUsers(MyClient*);
     void messageReceived(QByteArray,MyClient*);
     void loggedIn(QByteArray,MyClient*,QString,QString);
-    void keyGenerated(QByteArray,MyClient*,MyClient*,QString);
+    void keyGenerated(QByteArray,MyClient*,QString);
     void clientDisconected(QString);
     void logMessage(QString);
 

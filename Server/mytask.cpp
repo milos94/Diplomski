@@ -15,9 +15,10 @@ void MyTask::run(){
 
     list=message.split(' ');
 
-    if(list[0].compare("LOGIN")==0) LogIn();
+    if(list[0]=="LOGIN") LogIn();
     else if (list[0]=="LOGOFF")  LogOff();
     else if (list[0]== "CONN") startConversation();
+    else if (list[0]=="USRLIST") emit sendOnlineUsers(cli);
 }
 
 void MyTask::LogIn(){
@@ -61,7 +62,7 @@ void MyTask::startConversation(){
         logstr=response.data();
         response=crypt->encrypt(response);
     }
-    emit keyGenerated(response,clients->operator [](list[1]),clients->operator [](list[2]),logstr);
+    emit keyGenerated(response,clients->operator [](list[1]),logstr);
 }
 
 

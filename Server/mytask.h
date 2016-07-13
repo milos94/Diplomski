@@ -35,9 +35,9 @@ protected:
 
 signals:
     void loggedIn(QByteArray,MyClient*,QString,QString);
-    void keyGenerated(QByteArray,MyClient*,MyClient*,QString);
+    void keyGenerated(QByteArray,MyClient*,QString);
     void disconnected(QString);
-
+    void sendOnlineUsers(MyClient*);
 };
 
 #endif // MYTASK_H

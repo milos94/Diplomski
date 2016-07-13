@@ -55,7 +55,7 @@ public:
         label_2->setGeometry(QRect(390, 10, 59, 14));
         listUsers = new QListWidget(centralWidget);
         listUsers->setObjectName(QStringLiteral("listUsers"));
-        listUsers->setGeometry(QRect(390, 30, 121, 291));
+        listUsers->setGeometry(QRect(390, 30, 141, 291));
         Server->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(Server);
         menuBar->setObjectName(QStringLiteral("menuBar"));

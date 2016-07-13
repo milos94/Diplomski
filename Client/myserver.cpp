@@ -2,7 +2,7 @@
 
 MyServer::MyServer(qintptr port)
 {
-    if(this->listen(QHostAddress::LocalHost,port))
+    if(this->listen(QHostAddress::Any,port))
         qDebug()<<"Client Server Started";
     else
         qDebug()<<"Client Server Could Not Start";
@@ -17,4 +17,5 @@ void MyServer::incomingConnection(qintptr descriptor){
 
 void MyServer::msgRcv(QByteArray msg,QTcpSocket* soc){
     emit someoneConnected(msg,soc);
+    soc=nullptr;
 }

@@ -1524,12 +1524,9 @@ client.o: ../Client/client.cpp ../Client/client.h \
 		../../../Qt/5.7/gcc_64/include/QtWidgets/qstyle.h \
 		../../../Qt/5.7/gcc_64/include/QtWidgets/qtabbar.h \
 		../../../Qt/5.7/gcc_64/include/QtWidgets/qrubberband.h \
-		../../../Qt/5.7/gcc_64/include/QtWidgets/QLineEdit \
-		../../../Qt/5.7/gcc_64/include/QtWidgets/qlineedit.h \
-		../../../Qt/5.7/gcc_64/include/QtGui/qtextcursor.h \
-		../../../Qt/5.7/gcc_64/include/QtGui/qtextformat.h \
-		../../../Qt/5.7/gcc_64/include/QtGui/qpen.h \
-		../../../Qt/5.7/gcc_64/include/QtGui/qtextoption.h \
+		../../../Qt/5.7/gcc_64/include/QtWidgets/QListWidget \
+		../../../Qt/5.7/gcc_64/include/QtWidgets/qlistwidget.h \
+		../../../Qt/5.7/gcc_64/include/QtWidgets/qlistview.h \
 		../../../Qt/5.7/gcc_64/include/QtWidgets/QMenuBar \
 		../../../Qt/5.7/gcc_64/include/QtWidgets/qmenubar.h \
 		../../../Qt/5.7/gcc_64/include/QtWidgets/qmenu.h \

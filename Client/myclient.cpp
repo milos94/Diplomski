@@ -16,4 +16,5 @@ void MyClient::readyRead(){
     qDebug()<<data.data();
     emit msgRcv(data,socket);
     disconnect(socket,SIGNAL(readyRead()),this,SLOT(readyRead()));
+    socket=nullptr;
 }
