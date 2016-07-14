@@ -18,7 +18,10 @@ void MyTask::run(){
     if(list[0]=="LOGIN") LogIn();
     else if (list[0]=="LOGOFF")  LogOff();
     else if (list[0]== "CONN") startConversation();
-    else if (list[0]=="USRLIST") emit sendOnlineUsers(cli);
+    else if (list[0]=="USRLIST") {
+        cli->setPort(list[1].toLongLong());
+        emit sendOnlineUsers(cli);
+    }
 }
 
 void MyTask::LogIn(){
@@ -32,7 +35,6 @@ void MyTask::LogIn(){
                 logstr+="Login failed: User already loggedin!";
         }else{
         cli->setName(list[1]);
-        cli->setPort(list[3].toLongLong());
         clients->add(cli);
 
         name=list[1];

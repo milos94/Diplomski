@@ -1,11 +1,8 @@
 #include "myserver.h"
 
-MyServer::MyServer(qintptr port)
+MyServer::MyServer()
 {
-    if(this->listen(QHostAddress::Any,port))
-        qDebug()<<"Client Server Started";
-    else
-        qDebug()<<"Client Server Could Not Start";
+
 }
 
 void MyServer::incomingConnection(qintptr descriptor){
@@ -18,4 +15,13 @@ void MyServer::incomingConnection(qintptr descriptor){
 void MyServer::msgRcv(QByteArray msg,QTcpSocket* soc){
     emit someoneConnected(msg,soc);
     soc=nullptr;
+}
+
+bool MyServer::startServer(qintptr port){
+    bool started=this->listen(QHostAddress::Any,port);
+    if(started)
+        qDebug()<<"Client Server Started on port: "+ port;
+    else
+        qDebug()<<"Client Server Could Not Start on port: "+port;
+    return started;
 }

@@ -1,17 +1,21 @@
 #include "client.h"
 #include "ui_client.h"
 
-Client::Client(SslClient* client,MyCrypt* crypt,QString name,qintptr port,QWidget *parent) :
+Client::Client(SslClient* client,MyCrypt* crypt,QString name,QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Client)
 {
     ui->setupUi(this);
     this->setWindowTitle(name);
-    this->port=port;
+    this->port=12350;
     this->client=client;
     this->crypt=crypt;
     this->name=name;
-    this->server=new MyServer(port);
+    this->server=new MyServer;
+
+    while(!server->startServer(port)){
+        port++;
+    }
 
     connect(client,SIGNAL(ServerMessage(QByteArray)),
             this,SLOT(ServerMessage(QByteArray)),Qt::DirectConnection);
@@ -24,7 +28,7 @@ Client::Client(SslClient* client,MyCrypt* crypt,QString name,qintptr port,QWidge
 
 
     QByteArray msg;
-    msg.append("USRLIST");
+    msg.append("USRLIST "+QString::number(port));
     msg=crypt->encrypt(msg);
     client->sendMessage(msg);
 

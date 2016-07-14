@@ -10,7 +10,8 @@ class MyServer : public QTcpServer
 {
     Q_OBJECT
 public:
-    MyServer(qintptr);
+    MyServer();
+    bool startServer(qintptr);
 
 protected:
     void incomingConnection(qintptr);
