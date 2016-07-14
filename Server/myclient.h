@@ -27,6 +27,7 @@ public:
     QString getName(){ return name;}
     void setName(QString name){ this->name=name;}
     QString getAddrAndPort();
+    void setPort(qintptr);
     ~MyClient();
 
 signals:
@@ -44,6 +45,7 @@ private:
     QString name;
     qintptr socketDescriptor;
     QSslSocket *socket;
+    qintptr port;
 };
 
 #endif // MYCLIENT_H

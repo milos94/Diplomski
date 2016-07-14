@@ -12,6 +12,7 @@ LogInDialog::LogInDialog(QWidget *parent) :
     ui->btnLogIn->setEnabled(false);
     cli=new SslClient;
     cli->start();
+    port=12353;
     connect(cli,SIGNAL(connectedToServer(bool)),this,SLOT(connectionEstablised(bool)),Qt::DirectConnection);
     connect(cli,SIGNAL(ServerMessage(QByteArray)),this,SLOT(readMessage(QByteArray)));
 
@@ -41,7 +42,7 @@ void LogInDialog::LogInClicked(){
     QByteArray message("LOGIN ");
 
     message.append(ui->txtUserName->text()+' ');
-    message.append(ui->txtPass->text());
+    message.append(ui->txtPass->text()+' '+QString::number(port));
     message=crypt->encrypt(message);
     cli->sendMessage(message);
 
@@ -60,7 +61,7 @@ void LogInDialog::readMessage(QByteArray msg){
     else if(str.compare("FAIL2")==0)
         ui->lblStatus->setText("Wrong username/password!");    
     else if(str.compare("SUCESS")==0){
-        Client *clWindow= new Client(cli,crypt,ui->txtUserName->text());
+        Client *clWindow= new Client(cli,crypt,ui->txtUserName->text(),port);
         clWindow->show();
         disconnect(cli,SIGNAL(ServerMessage(QByteArray)),this,SLOT(readMessage(QByteArray)));
         this->close();

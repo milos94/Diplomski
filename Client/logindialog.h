@@ -29,6 +29,7 @@ private:
     Ui::LogInDialog *ui;
     SslClient *cli;
     MyCrypt *crypt;
+    qintptr port;
 };
 
 #endif // LOGINDIALOG_H

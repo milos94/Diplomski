@@ -1,13 +1,13 @@
 #include "client.h"
 #include "ui_client.h"
 
-Client::Client(SslClient* client,MyCrypt* crypt,QString name,QWidget *parent) :
+Client::Client(SslClient* client,MyCrypt* crypt,QString name,qintptr port,QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Client)
 {
     ui->setupUi(this);
     this->setWindowTitle(name);
-    this->port=12351;
+    this->port=port;
     this->client=client;
     this->crypt=crypt;
     this->name=name;
@@ -21,6 +21,7 @@ Client::Client(SslClient* client,MyCrypt* crypt,QString name,QWidget *parent) :
 
     connect(ui->btnStartChat,SIGNAL(released()),
             this,SLOT(startChat_click()));
+
 
     QByteArray msg;
     msg.append("USRLIST");

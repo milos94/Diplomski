@@ -32,7 +32,9 @@ void MyTask::LogIn(){
                 logstr+="Login failed: User already loggedin!";
         }else{
         cli->setName(list[1]);
+        cli->setPort(list[3].toLongLong());
         clients->add(cli);
+
         name=list[1];
         logstr+="Login sucessful!";
         response.append("SUCESS");
@@ -53,8 +55,7 @@ void MyTask::startConversation(){
         response.append("KEY "+list[1]+' '+list[2]+' ');
         response.append(crypt->makeKey()+' ');
         response.append(crypt->makeIV()+' ');
-        response.append(cli->getAddrAndPort());
-        response.append(list[3]);
+        response.append(clients->operator [](list[2])->getAddrAndPort());
         logstr=response.data();
         response=crypt->encrypt(response);
     }else {

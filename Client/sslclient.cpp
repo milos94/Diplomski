@@ -19,7 +19,7 @@ void SslClient::connectionEstablished(){
 
 void SslClient::start(){
 
-    client->connectToHostEncrypted("127.0.0.1",1234);
+    client->connectToHostEncrypted("192.168.1.249",1234);
 }
 
 void SslClient::sendMessage(QByteArray msg){

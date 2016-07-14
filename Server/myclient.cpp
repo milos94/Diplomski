@@ -54,11 +54,15 @@ void MyClient::ready(){
 QString MyClient::getAddrAndPort(){
 
     QString str;
-    str.append(socket->peerAddress().toString()+' ');
+    str.append(socket->peerAddress().toString()+' '+QString::number(port));
     return str;
 }
 
 MyClient::~MyClient(){
 
     delete socket;
+}
+
+void MyClient::setPort(qintptr prtnumb){
+    port=prtnumb;
 }
