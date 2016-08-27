@@ -1,0 +1,3 @@
+https://en.wikipedia.org/wiki/Public-key_cryptography
+http://searchsecurity.techtarget.com/definition/Secure-Sockets-Layer-SSL
+https://en.wikipedia.org/wiki/Transport_Layer_Security
