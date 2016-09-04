@@ -17,7 +17,7 @@ class Client : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit Client(SslClient*,MyCrypt*,QString,QWidget *parent = 0);
+    explicit Client(SslClient*,QString,QWidget *parent = 0);
     ~Client();
 
 public slots:
@@ -29,7 +29,6 @@ public slots:
 
 private:
     Ui::Client *ui;
-    MyCrypt *crypt;
     SslClient *client;
     QTcpSocket *socket;
     MyServer *server;

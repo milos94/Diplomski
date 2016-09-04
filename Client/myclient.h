@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QTcpSocket>
+#include "mycrypt.h"
 
 class MyClient : public QObject
 {
@@ -17,6 +18,8 @@ public slots:
 
 private:
     QTcpSocket *socket;
+    MyCrypt *crypt;
+    bool isEncrypted;
 };
 
 #endif // MYCLIENT_H

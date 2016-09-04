@@ -9,7 +9,6 @@ MyServer::MyServer(QTextEdit *txt,QListWidget *lst,QObject *parent):QTcpServer(p
     log->setReadOnly(true);
 
     clients=new ClientArray;
-    crypt=new MyCrypt;
 
     QByteArray key;
     QByteArray cert;
@@ -78,12 +77,12 @@ void MyServer::incomingConnection(qintptr socketDescriptor){
 
 void MyServer::messageReceived(QByteArray str,MyClient* cli){
 
-    MyTask *task=new MyTask(str,clients,crypt,cli);
+    MyTask *task=new MyTask(str,clients,cli);
 
     task->setAutoDelete(true);
 
-    connect(task,SIGNAL(loggedIn(QByteArray,MyClient*,QString,QString)),
-            this,SLOT(loggedIn(QByteArray,MyClient*,QString,QString)),Qt::QueuedConnection);
+    connect(task,SIGNAL(loggedIn(QByteArray,MyClient*,QString,QString,QByteArray,QByteArray)),
+            this,SLOT(loggedIn(QByteArray,MyClient*,QString,QString,QByteArray,QByteArray)),Qt::QueuedConnection);
 
     connect(task,SIGNAL(keyGenerated(QByteArray,MyClient*,QString)),
             this,SLOT(keyGenerated(QByteArray,MyClient*,QString)),Qt::QueuedConnection);
@@ -97,17 +96,17 @@ void MyServer::messageReceived(QByteArray str,MyClient* cli){
     QThreadPool::globalInstance()->start(task);
 }
 
-void MyServer::loggedIn(QByteArray msg, MyClient *client,QString name,QString logmessage){
+void MyServer::loggedIn(QByteArray msg, MyClient *client,QString name,QString logmessage,QByteArray connKey, QByteArray connIv){
 
 
     client->sendMessage(msg);
+    client->setCrypt(connKey.data(),connIv.data());
     log->append(logmessage);
     qDebug()<<msg.data();
 
     if(name.compare("NO")!=0){
         QByteArray data;
         data.append(name);
-        data=crypt->encrypt(data);
         userList->addItem(name);
         for(QString s : onlineUsers)
             clients->operator [](s)->sendMessage(data);
@@ -130,7 +129,6 @@ void MyServer::clientDisconected(QString name){
     MyClient *temp;
     QByteArray data;
     data.append("DISCC "+name);
-    data=crypt->encrypt(data);
     for(QString s : onlineUsers){
         userList->addItem(s);
         temp=clients->operator [](s);
@@ -148,7 +146,6 @@ void MyServer::sendOnlineUsers(MyClient *cli){
     QByteArray msg;
     for(QString s : onlineUsers)
         msg.append(s+' ');
-    msg=crypt->encrypt(msg);
     cli->sendMessage(msg);
 
 }
@@ -159,5 +156,4 @@ void MyServer::sendOnlineUsers(MyClient *cli){
      delete sslKey;
      delete sslCertificate;
      delete clients;
-     delete crypt;
  }

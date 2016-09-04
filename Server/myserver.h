@@ -30,7 +30,6 @@ private:
     QSslKey *sslKey;
     QSslCertificate *sslCertificate;
     ClientArray *clients;
-    MyCrypt *crypt;
     QTextEdit *log;
     QListWidget *userList;
     QStringList onlineUsers;
@@ -39,7 +38,7 @@ private:
 public slots:
     void sendOnlineUsers(MyClient*);
     void messageReceived(QByteArray,MyClient*);
-    void loggedIn(QByteArray,MyClient*,QString,QString);
+    void loggedIn(QByteArray,MyClient*,QString,QString,QByteArray,QByteArray);
     void keyGenerated(QByteArray,MyClient*,QString);
     void clientDisconected(QString);
     void logMessage(QString);

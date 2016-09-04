@@ -944,6 +944,8 @@ moc_sslclient.cpp: ../../../Qt/5.7/gcc_64/include/QtCore/QObject \
 		../../../Qt/5.7/gcc_64/include/QtCore/QByteArray \
 		../../../Qt/5.7/gcc_64/include/QtCore/QList \
 		../../../Qt/5.7/gcc_64/include/QtNetwork/QSslCertificate \
+		../Client/mycrypt.h \
+		../../../Qt/5.7/gcc_64/include/QtCore/QDebug \
 		../Client/sslclient.h \
 		../../../Qt/5.7/gcc_64/bin/moc
 	'/home/milos/Program Files/Qt/5.7/gcc_64/bin/moc' $(DEFINES) -I'/home/milos/Program Files/Qt/5.7/gcc_64/mkspecs/linux-g++' -I'/home/milos/Program Files/Git/Diplomski/Client' -I'/home/milos/Program Files/Qt/5.7/gcc_64/include' -I'/home/milos/Program Files/Qt/5.7/gcc_64/include/QtWidgets' -I'/home/milos/Program Files/Qt/5.7/gcc_64/include/QtGui' -I'/home/milos/Program Files/Qt/5.7/gcc_64/include/QtNetwork' -I'/home/milos/Program Files/Qt/5.7/gcc_64/include/QtCore' -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../Client/sslclient.h -o moc_sslclient.cpp
@@ -1017,6 +1019,9 @@ moc_myserver.cpp: ../../../Qt/5.7/gcc_64/include/QtCore/QObject \
 		../../../Qt/5.7/gcc_64/include/QtNetwork/QTcpSocket \
 		../../../Qt/5.7/gcc_64/include/QtNetwork/qtcpsocket.h \
 		../Client/myclient.h \
+		../Client/mycrypt.h \
+		../../../Qt/5.7/gcc_64/include/QtCore/QByteArray \
+		../../../Qt/5.7/gcc_64/include/QtCore/QDebug \
 		../Client/myserver.h \
 		../../../Qt/5.7/gcc_64/bin/moc
 	'/home/milos/Program Files/Qt/5.7/gcc_64/bin/moc' $(DEFINES) -I'/home/milos/Program Files/Qt/5.7/gcc_64/mkspecs/linux-g++' -I'/home/milos/Program Files/Git/Diplomski/Client' -I'/home/milos/Program Files/Qt/5.7/gcc_64/include' -I'/home/milos/Program Files/Qt/5.7/gcc_64/include/QtWidgets' -I'/home/milos/Program Files/Qt/5.7/gcc_64/include/QtGui' -I'/home/milos/Program Files/Qt/5.7/gcc_64/include/QtNetwork' -I'/home/milos/Program Files/Qt/5.7/gcc_64/include/QtCore' -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../Client/myserver.h -o moc_myserver.cpp
@@ -1086,6 +1091,9 @@ moc_myclient.cpp: ../../../Qt/5.7/gcc_64/include/QtCore/QObject \
 		../../../Qt/5.7/gcc_64/include/QtCore/qcontiguouscache.h \
 		../../../Qt/5.7/gcc_64/include/QtCore/qsharedpointer.h \
 		../../../Qt/5.7/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../Client/mycrypt.h \
+		../../../Qt/5.7/gcc_64/include/QtCore/QByteArray \
+		../../../Qt/5.7/gcc_64/include/QtCore/QDebug \
 		../Client/myclient.h \
 		../../../Qt/5.7/gcc_64/bin/moc
 	'/home/milos/Program Files/Qt/5.7/gcc_64/bin/moc' $(DEFINES) -I'/home/milos/Program Files/Qt/5.7/gcc_64/mkspecs/linux-g++' -I'/home/milos/Program Files/Git/Diplomski/Client' -I'/home/milos/Program Files/Qt/5.7/gcc_64/include' -I'/home/milos/Program Files/Qt/5.7/gcc_64/include/QtWidgets' -I'/home/milos/Program Files/Qt/5.7/gcc_64/include/QtGui' -I'/home/milos/Program Files/Qt/5.7/gcc_64/include/QtNetwork' -I'/home/milos/Program Files/Qt/5.7/gcc_64/include/QtCore' -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../Client/myclient.h -o moc_myclient.cpp
@@ -1791,7 +1799,9 @@ sslclient.o: ../Client/sslclient.cpp ../Client/sslclient.h \
 		../../../Qt/5.7/gcc_64/include/QtCore/QString \
 		../../../Qt/5.7/gcc_64/include/QtCore/QByteArray \
 		../../../Qt/5.7/gcc_64/include/QtCore/QList \
-		../../../Qt/5.7/gcc_64/include/QtNetwork/QSslCertificate
+		../../../Qt/5.7/gcc_64/include/QtNetwork/QSslCertificate \
+		../Client/mycrypt.h \
+		../../../Qt/5.7/gcc_64/include/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sslclient.o ../Client/sslclient.cpp
 
 mycrypt.o: ../Client/mycrypt.cpp ../Client/mycrypt.h \
@@ -1929,7 +1939,10 @@ myserver.o: ../Client/myserver.cpp ../Client/myserver.h \
 		../../../Qt/5.7/gcc_64/include/QtNetwork/qhostaddress.h \
 		../../../Qt/5.7/gcc_64/include/QtNetwork/QTcpSocket \
 		../../../Qt/5.7/gcc_64/include/QtNetwork/qtcpsocket.h \
-		../Client/myclient.h
+		../Client/myclient.h \
+		../Client/mycrypt.h \
+		../../../Qt/5.7/gcc_64/include/QtCore/QByteArray \
+		../../../Qt/5.7/gcc_64/include/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o myserver.o ../Client/myserver.cpp
 
 myclient.o: ../Client/myclient.cpp ../Client/myclient.h \
@@ -1997,7 +2010,10 @@ myclient.o: ../Client/myclient.cpp ../Client/myclient.h \
 		../../../Qt/5.7/gcc_64/include/QtCore/qset.h \
 		../../../Qt/5.7/gcc_64/include/QtCore/qcontiguouscache.h \
 		../../../Qt/5.7/gcc_64/include/QtCore/qsharedpointer.h \
-		../../../Qt/5.7/gcc_64/include/QtCore/qsharedpointer_impl.h
+		../../../Qt/5.7/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../Client/mycrypt.h \
+		../../../Qt/5.7/gcc_64/include/QtCore/QByteArray \
+		../../../Qt/5.7/gcc_64/include/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o myclient.o ../Client/myclient.cpp
 
 chatwindow.o: ../Client/chatwindow.cpp ../Client/chatwindow.h \

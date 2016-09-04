@@ -14,7 +14,6 @@ using namespace CryptoPP;
 class MyCrypt
 {
 private:
-    AutoSeededRandomPool prng;
     byte key[AES::MAX_KEYLENGTH];
     byte iv[AES::BLOCKSIZE];
 
@@ -22,8 +21,9 @@ public:
     MyCrypt();
     QByteArray encrypt(QByteArray data);
     QByteArray decrypt(QByteArray data);
-    QByteArray makeKey();
-    QByteArray makeIV();
+    static QByteArray makeKey();
+    static QByteArray makeIV();
+    void setKeyIv(std::string key,std::string iv);
     byte* getKey(){ return key;}
 };
 

@@ -11,6 +11,7 @@
 #include <QSslConfiguration>
 #include <QtCrypto/QtCrypto>
 #include <string>
+#include "mycrypt.h"
 
 using namespace std;
 
@@ -22,8 +23,10 @@ public:
     explicit MyClient(QObject *parent = 0);
     void setSocket(qintptr Descriptor,QSslKey,QSslCertificate);
     void sendMessage(QString message);
-    void sendMessage(const char* msg){ socket->write(msg);  socket->flush();}
-    void sendMessage(QByteArray data){ socket->write(data); socket->flush();}
+    void sendMessage(const char* msg);
+    void sendMessage(QByteArray data);
+    QByteArray encrypt(QByteArray data);
+    void setCrypt(std::string key, std::string iv);
     QString getName(){ return name;}
     void setName(QString name){ this->name=name;}
     QString getAddrAndPort();
@@ -46,6 +49,8 @@ private:
     qintptr socketDescriptor;
     QSslSocket *socket;
     qintptr port;
+    MyCrypt *crypt;
+    bool isEncripted;
 };
 
 #endif // MYCLIENT_H

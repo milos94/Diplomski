@@ -6,7 +6,6 @@ LogInDialog::LogInDialog(QWidget *parent) :
     ui(new Ui::LogInDialog)
 {
     ui->setupUi(this);
-    crypt=new MyCrypt("1AAE0C7222C0D716B4A197321E602F2BE31D4344AF0A0577EE029D23154DA9EA","81D605853779AD15B106C8FDE4E2A9D3");
     connect(ui->btnCancle,SIGNAL(released()),this,SLOT(CancleClicked()),Qt::AutoConnection);
     connect(ui->btnLogIn,SIGNAL(released()),this,SLOT(LogInClicked()),Qt::AutoConnection);
     ui->btnLogIn->setEnabled(false);
@@ -42,7 +41,6 @@ void LogInDialog::LogInClicked(){
 
     message.append(ui->txtUserName->text()+' ');
     message.append(ui->txtPass->text());
-    message=crypt->encrypt(message);
     cli->sendMessage(message);
 
     ui->txtUserName->setEnabled(false);
@@ -51,20 +49,25 @@ void LogInDialog::LogInClicked(){
 }
 
 void LogInDialog::readMessage(QByteArray msg){
-    qDebug()<<msg.data();
-    msg=crypt->decrypt(msg);
+
     qDebug()<<msg.data();
     QString str=msg.data();
-    if(str.compare("FAIL1")==0)
+    QStringList list=str.split(' ');
+
+    if(list[0].compare("FAIL1")==0)
         ui->lblStatus->setText("User already logged in!");
-    else if(str.compare("FAIL2")==0)
-        ui->lblStatus->setText("Wrong username/password!");    
-    else if(str.compare("SUCESS")==0){
-        Client *clWindow= new Client(cli,crypt,ui->txtUserName->text());
-        clWindow->show();
+
+    else if(list[0].compare("FAIL2")==0)
+        ui->lblStatus->setText("Wrong username/password!");
+
+    else if(list[0].compare("SUCESS")==0){
+        cli->setCrypt(list[1].toUtf8(),list[2].toUtf8());
+        Client *clWindow= new Client(cli,ui->txtUserName->text());
         disconnect(cli,SIGNAL(ServerMessage(QByteArray)),this,SLOT(readMessage(QByteArray)));
+        clWindow->show();
         this->close();
     }
+
     ui->txtUserName->setEnabled(true);
     ui->txtPass->setEnabled(true);
     ui->btnLogIn->setEnabled(true);

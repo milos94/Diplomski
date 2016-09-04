@@ -754,10 +754,10 @@ moc_server.cpp: ../../../Qt/5.7/gcc_64/include/QtCore/QObject \
 		../../../Qt/5.7/gcc_64/include/QtNetwork/QHostAddress \
 		../../../Qt/5.7/gcc_64/include/QtNetwork/QSslConfiguration \
 		../../../Qt/5.7/gcc_64/include/QtNetwork/qsslconfiguration.h \
-		../Server/mytask.h \
-		../../../Qt/5.7/gcc_64/include/QtCore/QRunnable \
 		../Server/mycrypt.h \
 		../../../Qt/5.7/gcc_64/include/QtCore/QByteArray \
+		../Server/mytask.h \
+		../../../Qt/5.7/gcc_64/include/QtCore/QRunnable \
 		../Server/myclientarray.h \
 		../Server/clientslist.h \
 		../../../Qt/5.7/gcc_64/include/QtCore/QString \
@@ -918,10 +918,10 @@ moc_myserver.cpp: ../../../Qt/5.7/gcc_64/include/QtCore/QObject \
 		../../../Qt/5.7/gcc_64/include/QtNetwork/QHostAddress \
 		../../../Qt/5.7/gcc_64/include/QtNetwork/QSslConfiguration \
 		../../../Qt/5.7/gcc_64/include/QtNetwork/qsslconfiguration.h \
-		../Server/mytask.h \
-		../../../Qt/5.7/gcc_64/include/QtCore/QRunnable \
 		../Server/mycrypt.h \
 		../../../Qt/5.7/gcc_64/include/QtCore/QByteArray \
+		../Server/mytask.h \
+		../../../Qt/5.7/gcc_64/include/QtCore/QRunnable \
 		../Server/myclientarray.h \
 		../Server/clientslist.h \
 		../../../Qt/5.7/gcc_64/include/QtCore/QString \
@@ -1014,6 +1014,8 @@ moc_myclient.cpp: ../../../Qt/5.7/gcc_64/include/QtCore/QObject \
 		../../../Qt/5.7/gcc_64/include/QtNetwork/qhostaddress.h \
 		../../../Qt/5.7/gcc_64/include/QtNetwork/QSslConfiguration \
 		../../../Qt/5.7/gcc_64/include/QtNetwork/qsslconfiguration.h \
+		../Server/mycrypt.h \
+		../../../Qt/5.7/gcc_64/include/QtCore/QByteArray \
 		../Server/myclient.h \
 		../../../Qt/5.7/gcc_64/bin/moc
 	'/home/milos/Program Files/Qt/5.7/gcc_64/bin/moc' $(DEFINES) -I'/home/milos/Program Files/Qt/5.7/gcc_64/mkspecs/linux-g++' -I'/home/milos/Program Files/Git/Diplomski/Server' -I'/home/milos/Program Files/Qt/5.7/gcc_64/include' -I'/home/milos/Program Files/Qt/5.7/gcc_64/include/QtWidgets' -I'/home/milos/Program Files/Qt/5.7/gcc_64/include/QtGui' -I'/home/milos/Program Files/Qt/5.7/gcc_64/include/QtNetwork' -I'/home/milos/Program Files/Qt/5.7/gcc_64/include/QtCore' -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../Server/myclient.h -o moc_myclient.cpp
@@ -1352,10 +1354,10 @@ main.o: ../Server/main.cpp ../Server/server.h \
 		../../../Qt/5.7/gcc_64/include/QtNetwork/QHostAddress \
 		../../../Qt/5.7/gcc_64/include/QtNetwork/QSslConfiguration \
 		../../../Qt/5.7/gcc_64/include/QtNetwork/qsslconfiguration.h \
-		../Server/mytask.h \
-		../../../Qt/5.7/gcc_64/include/QtCore/QRunnable \
 		../Server/mycrypt.h \
 		../../../Qt/5.7/gcc_64/include/QtCore/QByteArray \
+		../Server/mytask.h \
+		../../../Qt/5.7/gcc_64/include/QtCore/QRunnable \
 		../Server/myclientarray.h \
 		../Server/clientslist.h \
 		../../../Qt/5.7/gcc_64/include/QtCore/QString \
@@ -1525,10 +1527,10 @@ server.o: ../Server/server.cpp ../Server/server.h \
 		../../../Qt/5.7/gcc_64/include/QtNetwork/QHostAddress \
 		../../../Qt/5.7/gcc_64/include/QtNetwork/QSslConfiguration \
 		../../../Qt/5.7/gcc_64/include/QtNetwork/qsslconfiguration.h \
-		../Server/mytask.h \
-		../../../Qt/5.7/gcc_64/include/QtCore/QRunnable \
 		../Server/mycrypt.h \
 		../../../Qt/5.7/gcc_64/include/QtCore/QByteArray \
+		../Server/mytask.h \
+		../../../Qt/5.7/gcc_64/include/QtCore/QRunnable \
 		../Server/myclientarray.h \
 		../Server/clientslist.h \
 		../../../Qt/5.7/gcc_64/include/QtCore/QString \
@@ -1714,10 +1716,10 @@ myserver.o: ../Server/myserver.cpp ../Server/myserver.h \
 		../../../Qt/5.7/gcc_64/include/QtNetwork/QHostAddress \
 		../../../Qt/5.7/gcc_64/include/QtNetwork/QSslConfiguration \
 		../../../Qt/5.7/gcc_64/include/QtNetwork/qsslconfiguration.h \
-		../Server/mytask.h \
-		../../../Qt/5.7/gcc_64/include/QtCore/QRunnable \
 		../Server/mycrypt.h \
 		../../../Qt/5.7/gcc_64/include/QtCore/QByteArray \
+		../Server/mytask.h \
+		../../../Qt/5.7/gcc_64/include/QtCore/QRunnable \
 		../Server/myclientarray.h \
 		../Server/clientslist.h \
 		../../../Qt/5.7/gcc_64/include/QtCore/QString \
@@ -1808,7 +1810,9 @@ myclient.o: ../Server/myclient.cpp ../Server/myclient.h \
 		../../../Qt/5.7/gcc_64/include/QtNetwork/QHostAddress \
 		../../../Qt/5.7/gcc_64/include/QtNetwork/qhostaddress.h \
 		../../../Qt/5.7/gcc_64/include/QtNetwork/QSslConfiguration \
-		../../../Qt/5.7/gcc_64/include/QtNetwork/qsslconfiguration.h
+		../../../Qt/5.7/gcc_64/include/QtNetwork/qsslconfiguration.h \
+		../Server/mycrypt.h \
+		../../../Qt/5.7/gcc_64/include/QtCore/QByteArray
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o myclient.o ../Server/myclient.cpp
 
 mytask.o: ../Server/mytask.cpp ../Server/myclient.h \
@@ -1896,6 +1900,8 @@ mytask.o: ../Server/mytask.cpp ../Server/myclient.h \
 		../../../Qt/5.7/gcc_64/include/QtNetwork/qhostaddress.h \
 		../../../Qt/5.7/gcc_64/include/QtNetwork/QSslConfiguration \
 		../../../Qt/5.7/gcc_64/include/QtNetwork/qsslconfiguration.h \
+		../Server/mycrypt.h \
+		../../../Qt/5.7/gcc_64/include/QtCore/QByteArray \
 		../Server/mytask.h \
 		../../../Qt/5.7/gcc_64/include/QtCore/QRunnable \
 		../../../Qt/5.7/gcc_64/include/QtWidgets/QListWidget \
@@ -1960,8 +1966,6 @@ mytask.o: ../Server/mytask.cpp ../Server/myclient.h \
 		../../../Qt/5.7/gcc_64/include/QtGui/qtextcursor.h \
 		../../../Qt/5.7/gcc_64/include/QtGui/qtextformat.h \
 		../../../Qt/5.7/gcc_64/include/QtGui/qpen.h \
-		../Server/mycrypt.h \
-		../../../Qt/5.7/gcc_64/include/QtCore/QByteArray \
 		../Server/myclientarray.h \
 		../Server/clientslist.h \
 		../../../Qt/5.7/gcc_64/include/QtCore/QString \
@@ -2054,7 +2058,9 @@ clientarray.o: ../Server/clientarray.cpp ../Server/clientarray.h \
 		../../../Qt/5.7/gcc_64/include/QtNetwork/QHostAddress \
 		../../../Qt/5.7/gcc_64/include/QtNetwork/qhostaddress.h \
 		../../../Qt/5.7/gcc_64/include/QtNetwork/QSslConfiguration \
-		../../../Qt/5.7/gcc_64/include/QtNetwork/qsslconfiguration.h
+		../../../Qt/5.7/gcc_64/include/QtNetwork/qsslconfiguration.h \
+		../Server/mycrypt.h \
+		../../../Qt/5.7/gcc_64/include/QtCore/QByteArray
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o clientarray.o ../Server/clientarray.cpp
 
 mycrypt.o: ../Server/mycrypt.cpp ../Server/mycrypt.h \

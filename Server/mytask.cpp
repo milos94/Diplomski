@@ -1,16 +1,15 @@
 #include "myclient.h"
 #include "mytask.h"
 
-MyTask::MyTask(QByteArray str,ClientArray* clients,MyCrypt *crypt,MyClient* cli)
+MyTask::MyTask(QByteArray str,ClientArray* clients,MyClient* cli)
 {
     this->str=str;
     this->clients=clients;
-    this->crypt=crypt;
     this->cli=cli;
 }
 
 void MyTask::run(){
-    str=crypt->decrypt(str);
+
     QString message=str.data();
 
     list=message.split(' ');
@@ -27,6 +26,7 @@ void MyTask::run(){
 void MyTask::LogIn(){
     QString logstr="Login started\n"+list[1]+' ';
     QString name="NO";
+    QByteArray connKey,connIv;
     QByteArray response;
     if(ClientList::usernames.contains(list[1]) &&
                 ClientList::passwords.at(ClientList::usernames.indexOf(list[1]))==list[2]){
@@ -36,17 +36,19 @@ void MyTask::LogIn(){
         }else{
         cli->setName(list[1]);
         clients->add(cli);
-
         name=list[1];
+        connKey=MyCrypt::makeKey();
+        connIv=MyCrypt::makeIV();
+
         logstr+="Login sucessful!";
-        response.append("SUCESS");
+        response.append("SUCESS "+connKey+' '+connIv);
         }
     }else{
         logstr+="Login failed: Wrong username/password!";
         response.append("FAIL2");
     }
-    response=crypt->encrypt(response);
-    emit loggedIn(response,cli,name,logstr);
+
+    emit loggedIn(response,cli,name,logstr,connKey,connIv);
 
 }
 
@@ -54,18 +56,22 @@ void MyTask::startConversation(){
     QByteArray response;
     QString logstr;
     if(clients->contains(list[1]) && clients->contains(list[2])){
-        response.append("KEY "+list[1]+' '+list[2]+' ');
-        response.append(crypt->makeKey()+' ');
-        response.append(crypt->makeIV()+' ');
-        response.append(clients->operator [](list[2])->getAddrAndPort());
+        QByteArray connKey=MyCrypt::makeKey();
+        QByteArray connIv=MyCrypt::makeIV();
+        response.append("KEY "+list[2]+' ');
+        response.append(connKey+' ');
+        response.append(connIv+' ');
+        response.append(clients->operator [](list[2])->getAddrAndPort()+' ');
+        QByteArray response2;
+        response2.append("KEY "+cli->getName()+' '+connKey+' '+connIv);
+        response2=clients->operator [](list[2])->encrypt(response2);
+        response.append(response2);
         logstr=response.data();
-        response=crypt->encrypt(response);
     }else {
         response.append("FAIL3");
         logstr=response.data();
-        response=crypt->encrypt(response);
     }
-    emit keyGenerated(response,clients->operator [](list[1]),logstr);
+    emit keyGenerated(response,cli,logstr);
 }
 
 
@@ -76,5 +82,4 @@ void MyTask::LogOff(){
 MyTask::~MyTask(){
     cli=nullptr;
     clients=nullptr;
-    crypt=nullptr;
 }

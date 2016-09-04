@@ -20,7 +20,6 @@ private:
     MyClient* cli;
     QByteArray str;
     ClientArray *clients;
-    MyCrypt *crypt;
     QStringList list;
     void LogIn();
     void startConversation();
@@ -28,13 +27,13 @@ private:
     void LogOff();
 
 public:
-    MyTask(QByteArray,ClientArray*,MyCrypt*,MyClient*);
+    MyTask(QByteArray,ClientArray*,MyClient*);
     ~MyTask();
 protected:
     void run();
 
 signals:
-    void loggedIn(QByteArray,MyClient*,QString,QString);
+    void loggedIn(QByteArray,MyClient*,QString,QString,QByteArray,QByteArray);
     void keyGenerated(QByteArray,MyClient*,QString);
     void disconnected(QString);
     void sendOnlineUsers(MyClient*);

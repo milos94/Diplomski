@@ -11,7 +11,7 @@ ChatWindow::ChatWindow(QTcpSocket* socket,QString name, QByteArray key, QByteArr
     this->name=name;
     this->setWindowTitle(name);
     crypt=new MyCrypt(key.data(),iv.data());
-
+    qDebug()<<key.data()<<' '<<iv.data();
     connect(this->socket,SIGNAL(readyRead()),
             this,SLOT(read()),Qt::DirectConnection);
 
@@ -31,7 +31,9 @@ ChatWindow::~ChatWindow()
     delete crypt;
 }
 void ChatWindow::read(){
+
     QByteArray rData=socket->readAll();
+    qDebug()<<rData.data();
     rData=crypt->decrypt(rData);
     QByteArray data;
     data.append(name+": ");
@@ -42,6 +44,7 @@ void ChatWindow::read(){
 }
 
 void ChatWindow::send(){
+
     QByteArray data;
     data.clear();
     data.append(ui->txtMessage->text());
@@ -56,6 +59,7 @@ void ChatWindow::send(){
 }
 
 void ChatWindow::clientDisconnected(){
+
     ui->txtDisplayMessages->appendPlainText(name+" Disconnected...");
     ui->btnSend->setEnabled(false);
 }

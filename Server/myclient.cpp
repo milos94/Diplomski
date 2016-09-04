@@ -2,7 +2,7 @@
 
 MyClient::MyClient(QObject *parent) : QObject(parent)
 {
-
+    isEncripted=false;
 }
 
 void MyClient::setSocket(qintptr Descriptor,QSslKey key,QSslCertificate cert){
@@ -35,6 +35,8 @@ void MyClient::disconnected(){
 
 void MyClient::readyRead(){
     QByteArray msg=socket->readAll();
+    if(isEncripted)
+        msg=crypt->decrypt(msg);
     emit msgRcv(msg,this);
 }
 
@@ -42,8 +44,24 @@ void MyClient::readyRead(){
 
 void MyClient::sendMessage(QString message){
 
-    socket->write(message.toUtf8());
+    QByteArray data=message.toUtf8();
+    if(isEncripted){
+        data=crypt->encrypt(data);
+    }
+    socket->write(data);
     socket->flush();
+}
+void MyClient::sendMessage(const char* msg){
+    QByteArray data=msg;
+    if(isEncripted)
+        data=crypt->encrypt(data);
+    socket->write(msg);
+}
+
+void MyClient::sendMessage(QByteArray data){
+    if(isEncripted)
+        data=crypt->encrypt(data);
+    socket->write(data);
 }
 
 void MyClient::ready(){
@@ -61,8 +79,21 @@ QString MyClient::getAddrAndPort(){
 MyClient::~MyClient(){
 
     delete socket;
+    delete crypt;
 }
 
 void MyClient::setPort(qintptr prtnumb){
     port=prtnumb;
+}
+
+QByteArray MyClient::encrypt(QByteArray data){
+
+    return (isEncripted)?crypt->encrypt(data):data;
+}
+
+
+void MyClient::setCrypt(std::string key, std::string iv){
+    crypt=new MyCrypt;
+    crypt->setKeyIv(key,iv);
+    isEncripted=true;
 }

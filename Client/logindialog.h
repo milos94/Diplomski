@@ -28,7 +28,6 @@ public slots:
 private:
     Ui::LogInDialog *ui;
     SslClient *cli;
-    MyCrypt *crypt;
 };
 
 #endif // LOGINDIALOG_H

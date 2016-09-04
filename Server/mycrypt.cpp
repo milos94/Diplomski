@@ -3,20 +3,20 @@
 MyCrypt::MyCrypt()
 {
 
-    std::string strKey="1AAE0C7222C0D716B4A197321E602F2BE31D4344AF0A0577EE029D23154DA9EA";
-    std::string strIV="81D605853779AD15B106C8FDE4E2A9D3";
+}
+
+void MyCrypt::setKeyIv(std::string strKey, std::string strIv){
 
     qDebug()<<strKey.c_str();
-    qDebug()<<strIV.c_str();
+    qDebug()<<strIv.c_str();
 
     std::string sKey,sIv;
 
     StringSource(strKey,true,new HexDecoder(new StringSink(sKey)));
-    StringSource(strIV,true,new HexDecoder(new StringSink(sIv)));
+    StringSource(strIv,true,new HexDecoder(new StringSink(sIv)));
 
     memcpy(key,sKey.c_str(),AES::MAX_KEYLENGTH);
     memcpy(iv,sIv.c_str(),AES::BLOCKSIZE);
-
 
 }
 
@@ -68,17 +68,21 @@ QByteArray MyCrypt::decrypt(QByteArray data){
 }
 
 QByteArray MyCrypt::makeKey(){
+    AutoSeededRandomPool* prng=new AutoSeededRandomPool;
     byte cKey[AES::MAX_KEYLENGTH];
-    prng.GenerateBlock(cKey,sizeof(key));
+    prng->GenerateBlock(cKey,sizeof(key));
     std::string strKey;
     StringSource(cKey,AES::MAX_KEYLENGTH,true, new HexEncoder(new StringSink(strKey)));
+    delete prng;
     return QByteArray(strKey.c_str());
 }
 
 QByteArray MyCrypt::makeIV(){
+    AutoSeededRandomPool* prng=new AutoSeededRandomPool;
     byte cIV[AES::BLOCKSIZE];
-    prng.GenerateBlock(cIV,sizeof(cIV));
+    prng->GenerateBlock(cIV,sizeof(cIV));
     std::string strIV;
     StringSource(cIV,AES::BLOCKSIZE,true, new HexEncoder(new StringSink(strIV)));
+    delete prng;
     return QByteArray(strIV.c_str());
 }

@@ -57,13 +57,13 @@ static const uint qt_meta_data_MyTask[] = {
        4,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    4,   34,    2, 0x06 /* Public */,
-       4,    3,   43,    2, 0x06 /* Public */,
-       5,    1,   50,    2, 0x06 /* Public */,
-       6,    1,   53,    2, 0x06 /* Public */,
+       1,    6,   34,    2, 0x06 /* Public */,
+       4,    3,   47,    2, 0x06 /* Public */,
+       5,    1,   54,    2, 0x06 /* Public */,
+       6,    1,   57,    2, 0x06 /* Public */,
 
  // signals: parameters
-    QMetaType::Void, QMetaType::QByteArray, 0x80000000 | 3, QMetaType::QString, QMetaType::QString,    2,    2,    2,    2,
+    QMetaType::Void, QMetaType::QByteArray, 0x80000000 | 3, QMetaType::QString, QMetaType::QString, QMetaType::QByteArray, QMetaType::QByteArray,    2,    2,    2,    2,    2,    2,
     QMetaType::Void, QMetaType::QByteArray, 0x80000000 | 3, QMetaType::QString,    2,    2,    2,
     QMetaType::Void, QMetaType::QString,    2,
     QMetaType::Void, 0x80000000 | 3,    2,
@@ -77,7 +77,7 @@ void MyTask::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         MyTask *_t = static_cast<MyTask *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->loggedIn((*reinterpret_cast< QByteArray(*)>(_a[1])),(*reinterpret_cast< MyClient*(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3])),(*reinterpret_cast< QString(*)>(_a[4]))); break;
+        case 0: _t->loggedIn((*reinterpret_cast< QByteArray(*)>(_a[1])),(*reinterpret_cast< MyClient*(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3])),(*reinterpret_cast< QString(*)>(_a[4])),(*reinterpret_cast< QByteArray(*)>(_a[5])),(*reinterpret_cast< QByteArray(*)>(_a[6]))); break;
         case 1: _t->keyGenerated((*reinterpret_cast< QByteArray(*)>(_a[1])),(*reinterpret_cast< MyClient*(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3]))); break;
         case 2: _t->disconnected((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 3: _t->sendOnlineUsers((*reinterpret_cast< MyClient*(*)>(_a[1]))); break;
@@ -112,7 +112,7 @@ void MyTask::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         int *result = reinterpret_cast<int *>(_a[0]);
         void **func = reinterpret_cast<void **>(_a[1]);
         {
-            typedef void (MyTask::*_t)(QByteArray , MyClient * , QString , QString );
+            typedef void (MyTask::*_t)(QByteArray , MyClient * , QString , QString , QByteArray , QByteArray );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&MyTask::loggedIn)) {
                 *result = 0;
                 return;
@@ -181,9 +181,9 @@ int MyTask::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void MyTask::loggedIn(QByteArray _t1, MyClient * _t2, QString _t3, QString _t4)
+void MyTask::loggedIn(QByteArray _t1, MyClient * _t2, QString _t3, QString _t4, QByteArray _t5, QByteArray _t6)
 {
-    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)), const_cast<void*>(reinterpret_cast<const void*>(&_t3)), const_cast<void*>(reinterpret_cast<const void*>(&_t4)) };
+    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)), const_cast<void*>(reinterpret_cast<const void*>(&_t3)), const_cast<void*>(reinterpret_cast<const void*>(&_t4)), const_cast<void*>(reinterpret_cast<const void*>(&_t5)), const_cast<void*>(reinterpret_cast<const void*>(&_t6)) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 
