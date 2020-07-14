@@ -1,0 +1,10 @@
+{
+    "C_Cpp.default.configurationProvider": "vector-of-bool.cmake-tools",
+
+    "cmake.buildDirectory": "${workspaceFolder}/../bin",
+    "clang-tidy.buildPath": "${workspaceFolder}/../bin",
+    "clang-tidy.checks": ["*","-fuchsia-*","-google-*","-zircon-*","-abseil-*","-modernize-use-trailing-return-type","-llvm-*"],
+    "clang-format.assumeFilename": "${workspaceFolder}/.clang-format",
+
+    "editor.formatOnSave": true
+}
