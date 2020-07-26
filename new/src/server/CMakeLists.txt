@@ -14,6 +14,7 @@ set(public_libraries
 )
 
 set(interface_libraries
+         kerber_lib
 )
 
 add_executable(${executable_name} ${headers} ${sources})
